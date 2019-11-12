@@ -63,6 +63,13 @@ public class Queue {
 		}
 		count--;
 	}
+	
+	public void display() {
+		QNode node = this.front;
+		while(node.next!=null) {
+			System.out.println("Data :");
+		}
+	}
 	public int size() {
 		return count;
 	}

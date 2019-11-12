@@ -3,7 +3,12 @@ package com.bridgelabz.datastructure;
 public class Utility  {
 
 	Node  head;
+	Node front,rear;
 	int count = 0;
+	
+	public Utility() {
+		this.front = this.rear = null;
+	}
 	
 	//For adding element in the list
 	public void add(String data) {
@@ -36,7 +41,6 @@ public class Utility  {
 		}
 		temp+=node.data;
 		size(temp);
-		//System.out.print(temp+=node.data);
 		return temp;
 	}
 	
@@ -76,7 +80,6 @@ public class Utility  {
 	
 	//Deleting element by passing index value
 	public void remove(int count) {
-		//System.out.println("The index value is :"+count);
 		Node  node = head;
 		Node  n1 = null;
 		
@@ -190,11 +193,9 @@ public class Utility  {
 		}
 		else {
 			while(n.next!=null) {
-				//System.out.print(n.data1+" ");
 				temp+=n.data1+",";
 				n = n.next;
 			}
-			//System.out.print(n.data1);
 			temp+=n.data1;
 		}
 		return temp;
@@ -241,7 +242,7 @@ public class Utility  {
 	//For insert at Appropriate Position
 	public void insertAtPreservedPosition(int data) {
 		//System.out.println("Coming inside inserAtPreserved Position method :"+data);
-		Node  node = new Node ();
+		Node node = new Node ();
 		node.data1 = data;
 		node.next = null;
 		
@@ -290,13 +291,171 @@ public class Utility  {
 		return ch;
 	}
 	private boolean isEmpty(int top) {
-		if(count == 0){
+		if(count == 0)
 			return true;
-		}
 		else
 			return false;
 	}
 	public int size() {
 		return count;
+	}
+
+	//Pallindrome Checker implementation
+	
+	//Adding data in front
+	public void addFront(char data) {
+		Node node = new Node();
+		node.data2 = data;
+		node.next = null;
+		
+		if(this.front == null) {
+			this.front = this.rear = node;
+			count++;
+		}else {
+			addRear(data);
+		}
+	}
+	
+	//Adding data in rear
+	public void addRear(char data) {
+		Node node = new Node();
+		node.data2 = data;
+		node.next = null;
+		
+		if(this.front!=null) {
+			this.rear.next = node;
+			this.rear = node;
+			count++;
+		}
+	}
+	
+	//Remove front element
+	public void removeFront() {
+		if(this.front!=null) {
+			this.front = this.front.next;
+			count--;
+		}
+	}
+	
+	//Remove rear element
+	public char removeRear() {
+		Node node = this.front;
+		char temp;
+		
+		if(node.next==null) {
+			temp = node.data2;
+			return temp;
+		}
+		else {
+			while (node.next.next != null) {
+				node = node.next;
+			}
+			temp = node.next.data2;
+			node.next = null;
+			this.rear = node;
+			return temp;
+		}
+	}
+	
+	public String display() {
+		String temp="";
+		if(this.front == null)
+			return null;
+		else {
+			Node node = this.front;
+			while(node.next!=null) {
+				temp+=node.data2;
+				node = node.next;
+			}
+			temp+=node.data2;
+		}
+		return temp;
+	}
+
+	
+	//For Primenumbers in 2D array
+	public void prime2DArray() {
+		int array[][]=new int[10][100];
+		int prime[][]=new int[10][100];
+		int temp=1;
+		for (int i = 0; i< 10; i++) {
+			for (int j = 0; j < 100; j++) {
+				array[i][j]=temp;
+				temp++;
+			}
+		}
+		for (int i = 0; i <10; i++) {
+			for (int j = 0; j < 100; j++) {
+				if(checkPrime(array[i][j]))
+				{
+					prime[i][j]=array[i][j];
+				}
+				else
+				{
+					prime[i][j]=-1;
+				}
+			}
+		}
+		for (int i = 0; i < 10; i++) {
+			for (int j = 1; j < 100; j++) {
+				if(prime[i][j]!=-1)
+				{
+					System.out.print(prime[i][j]+" ");
+				}
+			}
+			System.out.println("\n");
+		}
+	}
+	
+	/*
+	 * Check prime
+	 */
+	public static boolean checkPrime(int number)
+	{
+		int count=0;
+		for (int i = 2; i <=number/2; i++) {
+			if(number%i==0)
+			{
+				count++;
+				break;
+			}
+		}
+		if(count==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public static void primeAnagram2DArray(int[] prime) {
+		for (int i = 0; i < prime.length; i++) {
+			System.out.println(i);
+		}
+	}
+
+	public static int numberOfBinarySearchTree(double totalNodes) {
+		double n=factorial(2*totalNodes);
+		double d=(factorial(totalNodes+1))*(factorial(totalNodes));
+		double differentTree=n/d;
+		return (int) differentTree;
+	}
+	/*
+	 * Calculating the factorial of the given number
+	 * 
+	 * @param i
+	 * @return factorial of the given number
+	 */
+	public static int factorial(double i)
+	{
+		int fact=1;
+		while(i>0)
+		{
+			fact=(int) (fact*i);
+			i--;
+		}
+		return fact;
 	}
 }

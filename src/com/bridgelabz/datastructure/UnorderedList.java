@@ -30,12 +30,8 @@ public class UnorderedList {
 			String word = sc.next();
 			 
 			utility.search(word);
-			/*if(index>=0) {
-				utility.remove(index);
-			}*/
 			
 			line = utility.show();
-			//int size = utility.size(line);
 			//System.out.println("After Adding or Removing elements From List, The Size of list is:"+size+"\n");
 			System.out.print("Final List are :\n"+line+" ");
 			

@@ -12,7 +12,7 @@ public class UnorderedList1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		try {
-			FileReader fileReader = new FileReader("E:\\Amit\\test.txt");
+			FileReader fileReader = new FileReader("/home/user/Documents/Amit/file.txt");
 			BufferedReader reader = new BufferedReader(fileReader);
 			Utility1<String> utility = new Utility1<String>();
 			String line= reader.readLine();
@@ -26,25 +26,24 @@ public class UnorderedList1 {
 				utility.add(s);
 			}
 			
+			//System.out.println("\nSize :"+utility.size());
 			System.out.println("\n\nEnter a word for search :");
 			String word = sc.next();
 			
 			int index = utility.search(word);
-			System.out.println("Index Value is :"+index);
-			
-			utility.remove(index);
+			//System.out.println("Index Value is :"+index);
+			if(index == -1)
+				utility.add(word);
+			else
+				utility.remove(index);
 			
 			String result = utility.show();
-			System.out.print("\n\nResult :\n"+result);
+			System.out.println("After Adding and deleting the final list are :\n"+result);
 			
-			line = utility.show();
-			//int size = utility.size(line);
-			//System.out.println("After Adding or Removing elements From List, The Size of list is:"+size+"\n");
-			System.out.print("\nFinal List are :\n"+line+" ");
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/user/Documents/Amit/file.txt"));
+			bufferedWriter.write(result);
+			bufferedWriter.close();
 			
-			BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\Amit\\test.txt"));
-			writer.write(line);
-			writer.close();
 				
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

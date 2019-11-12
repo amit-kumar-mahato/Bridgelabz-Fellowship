@@ -3,13 +3,20 @@ package com.bridgelabz.datastructure;
 public class Utility1<T extends Comparable<T>> {
 
 	Node1<T> head;
+	int size = 0;
+	
+	/**
+	 * @param data - data to be added
+	 * 
+	 */
 	public void add(T data) {
-		Node1<T> node = new Node1<T>(data);
-		//node.data = data;
+		Node1<T> node = new Node1<T>();
+		node.data = data;
 		node.next = null;
 		
 		if(head == null) {
 			head = node;
+			size++;
 		}
 		else {
 			Node1<T> n = head;
@@ -17,64 +24,94 @@ public class Utility1<T extends Comparable<T>> {
 				n = n.next;
 			}
 			n.next = node;
+			size++;
 		}
 	}
 	
+	/**
+	 * @param data - elements to be searched in the list
+	 * @returns index value if the element is in the list else returns -1
+	 */
 	public int search(T data) {
-		System.out.println("Data :"+data);
 		Node1<T> node = head;
-		boolean flag = false;
 		int result;
 		int count = 0;
 		if(head == null) {
 			System.out.println("Your List has no Data");
 		}
 		else {
-			//System.out.println("Coming inside else block"+node.data);
 			
 			while(node.next != null) {
-				result = data.compareTo(node.data);
-				//System.out.println("Result :"+result);
-				if(result == 0) {
-					flag = true;
+				if(data.compareTo(node.data) == 0) {
+					//System.out.println("Data found :"+node.data);
 					return count;
 				}
-				//System.out.println("Inside if block flag :"+flag);
-				/*if(node.data == data) {
-					System.out.println("Data found :"+node.data);
-					return count;
-				}*/
 				node = node.next;
 				count++;
 			}
-			//System.out.println("Flag value :"+flag);
-			result = data.compareTo(node.data);
-			if(result == 0) {
-				//System.out.println("Found at Last "+result);
+			if(data.compareTo(node.data) == 0)
 				return count;
-			}
-			count = 0;
 		}
-		return count;
+		return -1;
 	}
 	
+	/**
+	 * @param data - data to be removed
+	 * removes given index element from the list
+	 */
 	public void remove(int index) {
-	
+		Node1 node = head;
+		Node1 n1 = null;
+		
 		if(index == 0) {
 			head = head.next;
 		}
 		else {
-			Node1<T> node = head;
-			Node1<T> n1 = null;
-			while(node.next!=null) {
-				for(int i=0;i<index-1;i++) {
-					node  = node.next;
-				}
-				n1 = node.next;
-				node.next = n1.next;
+			for(int i=0;i<index-1;i++) {
+				node = node.next;
 			}
+			
+			n1 = node.next;
+			node.next = n1.next;
+			size--;
 		}
 	}
+	/**
+	 * @param data - data to be added at first position
+	 * 
+	 */
+	public void insertAtStart(T data) {
+		Node1 node = new Node1();
+		node.data = data;
+		node.next = null;
+		
+		node.next = head;
+		head = node;
+	}
+
+	/**
+	 * @param data - data to be added
+	 * adds data to the end of the list
+	 */
+	public void append(T data){
+		add(data);
+	}
+	
+	//For OrderedList
+	/*
+	 * @param data- data to be added at appropriate postion
+	 * 
+	 * */
+	public void insertAtPreservedPosition(T data) {
+		Node1<T> node = new Node1<T>();
+		node.data = data;
+		node.next = null;
+		
+	}
+	/*
+	 * Display the list element
+	 * 
+	 */
 	public String show() {
 		Node1<T> node = head;
 		String temp="";
@@ -85,6 +122,13 @@ public class Utility1<T extends Comparable<T>> {
 		}
 		temp += node.data;
 		return temp;
+	}
+	
+	/*
+	 * @return data - size of the list
+	 * */
+	public int size() {
+		return size;
 	}
 
 }
