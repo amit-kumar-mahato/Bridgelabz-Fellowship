@@ -1,3 +1,10 @@
+/*
+ * purpose : Create a Slot of 10 to store Chain of Numbers that belong to each Slot to
+				efficiently
+ * @author : Amit
+ * @version : 1.0
+ * @since : 11-11-2019
+ * */
 package com.bridgelabz.datastructure;
 
 import java.io.BufferedReader;
@@ -5,15 +12,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.rmi.CORBA.Util;
-
 public class Hashing {
 	static Scanner sc = new Scanner(System.in);
-	static Node[] array = new Node[11];
+	static Node1[] array = new Node1[11];
 	
 	public static void hash(int data) {
-		Node node = new Node();
-		node.data1 = data;
+		Node1 node = new Node1();
+		node.data = data;
 		node.next = null;
 		
 		int rem = data%11;
@@ -21,7 +26,7 @@ public class Hashing {
 			array[rem] = node;
 		}
 		else {
-			Node n = array[rem];
+			Node1 n = array[rem];
 			while(n.next!=null) {
 				n = n.next;
 			}
@@ -31,15 +36,14 @@ public class Hashing {
 	
 	public void display() {
 		for(int i = 0;i<array.length;i++) {
-			Node temp = array[i];
+			Node1 temp = array[i];
 			if (temp != null) {
-				System.out.print("Remainder " + i + " : ");
+				System.out.println("index " + i + " : ");
 				while (temp != null) {
-					System.out.print(temp.data1 + " ");
+					System.out.println(temp.data + " ");
 					temp = temp.next;
 				}
 			}
-			System.err.println();
 		}
 	}
 	public static void main(String[] args) throws IOException {
@@ -55,7 +59,6 @@ public class Hashing {
 			}
 		} 
 		Hashing hashing = new Hashing();
-		Utility utility = new Utility();
 		hashing.display();
 	}
 }

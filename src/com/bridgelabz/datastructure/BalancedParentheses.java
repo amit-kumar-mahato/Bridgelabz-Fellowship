@@ -10,9 +10,8 @@ package com.bridgelabz.datastructure;
 public class BalancedParentheses {
 	
 	public static void main(String[] args) {
-		Utility utility = new Utility();
-		//int top = -1;
-		String expression = "(5+6)*(7+8)/(4+3)(5+6)*(7+8)/(4+3)";
+		MyStack<Character> utility = new MyStack<>();
+		String expression = "((5+6)*(7+8)/(4+3)(5+6)*(7+8)/(4+3)";
 	
 		char[] ch = expression.toCharArray();
 		for(int i=0;i<ch.length;i++) {
@@ -20,7 +19,7 @@ public class BalancedParentheses {
 				utility.push(ch[i]);
 			}
 			else if(ch[i] == ')') {
-				utility.pop(ch[i]);
+				utility.pop();
 			}
 		}
 	
@@ -32,6 +31,5 @@ public class BalancedParentheses {
 		else {
 			System.out.println("Given Expression is Balanced!!!");
 		}
-		//System.out.println("Result :"+result);
 	}
 }

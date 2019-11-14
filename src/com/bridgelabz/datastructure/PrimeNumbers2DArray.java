@@ -8,10 +8,12 @@
 
 package com.bridgelabz.datastructure;
 
+import com.bridgelabz.util.Utility;
+
 public class PrimeNumbers2DArray {
 
 	public static void main(String[] args) {
-		Utility utility=new Utility();
+		Utility utility = new Utility();
 		utility.prime2DArray();//calling the method
 	}
 }

@@ -14,7 +14,7 @@ public class UnorderedList1 {
 		try {
 			FileReader fileReader = new FileReader("/home/user/Documents/Amit/file.txt");
 			BufferedReader reader = new BufferedReader(fileReader);
-			Utility1<String> utility = new Utility1<String>();
+			MyLinkedList<String> muLinkedList = new MyLinkedList<>();
 			String line= reader.readLine();
 			System.out.print("List of Words : \n"+ line);
 			
@@ -23,21 +23,19 @@ public class UnorderedList1 {
 				str = line.split(" ");
 			}
 			for(String s: str) {
-				utility.add(s);
+				muLinkedList.add(s);
 			}
 			
-			//System.out.println("\nSize :"+utility.size());
 			System.out.println("\n\nEnter a word for search :");
 			String word = sc.next();
 			
-			int index = utility.search(word);
-			//System.out.println("Index Value is :"+index);
+			int index = muLinkedList.search(word);
 			if(index == -1)
-				utility.add(word);
+				muLinkedList.add(word);
 			else
-				utility.remove(index);
+				muLinkedList.remove(index);
 			
-			String result = utility.show();
+			String result = muLinkedList.show();
 			System.out.println("After Adding and deleting the final list are :\n"+result);
 			
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/user/Documents/Amit/file.txt"));

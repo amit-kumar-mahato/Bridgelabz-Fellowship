@@ -8,35 +8,23 @@
  * */
 package com.bridgelabz.datastructure;
 
+import com.bridgelabz.util.Utility;
+
 public class PrimeNumberAnagram {
 	public static void main(String[] args) {
-		int size=1000;
-		int primeCount=1;
-		int count=0;
 		
-		while(primeCount<=size)
-		{
-			if(Utility.checkPrime(primeCount))
-			{
-				count++;
+		Utility utility = new Utility();
+		//	prime numbers array between 0 and 1000
+		String[] primeNumbers = utility.prime(1000);
+		
+		System.out.println("Anagram and prime numbers are:");
+		//	prints prime numbers that are anagrams
+		for(int i = 0; i < primeNumbers.length; i++) {
+			for(int j = i + 1; j < primeNumbers.length; j++) {
+				if(utility.anagram(primeNumbers[i], primeNumbers[j])) {
+					System.out.println(primeNumbers[i] + " " + primeNumbers[j]);
+				}
 			}
-			primeCount++;
 		}
-		System.out.println("Anagram Numbers are :");
-		
-		int prime[] = new int[count];
-		primeCount=1;
-		int count1=0;
-		
-		while(primeCount<=size)
-		{
-			if(Utility.checkPrime(primeCount))
-			{
-				prime[count1]=primeCount;
-				count1++;
-			}
-			primeCount++;
-		}
-		Utility.primeAnagram2DArray(prime);
 	}
 }

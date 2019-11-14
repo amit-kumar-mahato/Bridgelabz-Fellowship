@@ -6,6 +6,8 @@ package com.bridgelabz.datastructure;
 
 import java.util.Scanner;
 
+import com.bridgelabz.util.Utility;
+
 public class BinarySearchTree {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

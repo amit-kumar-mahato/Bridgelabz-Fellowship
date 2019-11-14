@@ -8,19 +8,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class OrderedList {
+public class OrderedList1 {
 	static Scanner sc  = new Scanner(System.in);
 	public static void main(String[] args) {
-		Utility utility = new Utility();
+		MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
 		System.out.println("Initial List :");
 		String line;
 		String[] str;
 		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("E:\\Amit\\test1.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("/home/user/Documents/Amit/file.txt"));
 			try {
 				line = reader.readLine();
-				str = line.split(",");
+				str = line.split(" ");
 				int[] array = new int[str.length];
 				int i=0;
 				for(String s: str) {
@@ -31,21 +31,25 @@ public class OrderedList {
 					System.out.print(a+" ");
 				}
 				System.out.println("\n\nAfter Sorting ");
-				int[] result = utility.sorting(array);
+				int[] result = myLinkedList.sorting(array);
 				for(int n:result) {
 					System.out.print(n+" ");
-					utility.insertInt(n);
+					myLinkedList.add(n);
 				}
 				
 				System.out.println("\n\nEnter a number :");
 				int number = sc.nextInt();
 				
-				utility.searchInt(number);
-				//utility.insertAtPreservedPosition(number);
-				line = utility.displayInt();
+				int index = myLinkedList.search(number);
+				System.out.println("ndex is :"+index);
+				if(index == -1)
+					myLinkedList.insertAtPreservedPosition(number);
+				else
+					myLinkedList.remove(index);
+				line = myLinkedList.show();
 				System.out.print("Final List :\n"+line);
 				
-				BufferedWriter writer = new BufferedWriter(new FileWriter("E:\\Amit\\test1.txt"));
+				BufferedWriter writer = new BufferedWriter(new FileWriter("/home/user/Documents/Amit/file.txt"));
 				writer.write(line);
 				
 				reader.close();

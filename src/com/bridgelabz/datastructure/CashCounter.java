@@ -1,3 +1,10 @@
+/*
+ * purpose : Program which creates Banking Cash Counter where people
+			come in to deposit Cash and withdraw Cash.
+ * @author : Amit
+ * @version : 1.0
+ * @since : 11-11-2019
+ * */
 package com.bridgelabz.datastructure;
 
 import java.util.Scanner;
@@ -10,60 +17,49 @@ public class CashCounter {
 	static int remainingPerson;
 	static int option;
 	public static void main(String[] args) {
-		Queue queue = new Queue();
-		/*queue.enqueue(10);
-		queue.enqueue(20);
+		MyQueue<Integer> utility = new MyQueue<>();
 		
-		queue.dequeue();
-		queue.dequeue();
-		
-		queue.enqueue(30);
-		queue.enqueue(40);
-		queue.enqueue(50);
-		System.out.println(queue.dequeue().data);*/
-		
-		//queue.display();
 		System.out.println(message);
 		
 		option = selectedOption();
-		callSwitchCase(queue);
+		callSwitchCase(utility);
 		
 	}
-	private static void callSwitchCase(Queue queue) {
+	private static void callSwitchCase(MyQueue<Integer> utility) {
 		switch (option) {
 		case 1:
 			System.out.println("Enter how many person you want add in Queue :");
 			int person = sc.nextInt();
 			
 			for(int i=1;i<=person;i++) {
-				queue.enqueue(i);
+				utility.enqueue(i);
 			}
 			option = selectedOption();
-			callSwitchCase(queue);
+			callSwitchCase(utility);
 			break;
 			
 		case 2:
 			System.out.println("Enter Amount to Deposit :");
 			double deposit = sc.nextDouble();
 			totalAmount = totalAmount+deposit;
-			queue.dequeue();
-			remainingPerson = queue.size();
+			utility.dequeue();
+			remainingPerson = utility.size();
 			System.out.print("Total Amount :"+totalAmount+"\n\n"+remainingPerson+" Person are in Queue");
-			System.out.println("\n\nThanks Visit Again!!!");
+			System.out.println("\n\n-------------------------Thanks Visit Again!!!--------------------------");
 			option = selectedOption();
-			callSwitchCase(queue);
+			callSwitchCase(utility);
 			break;
 			
 		case 3:
 			System.out.println("Enter Amount to Withdraw :");
 			double withdraw = sc.nextDouble();
 			totalAmount = totalAmount-withdraw;
-			queue.dequeue();
-			remainingPerson = queue.size();
+			utility.dequeue();
+			remainingPerson = utility.size();
 			System.out.print("Total Amount :"+totalAmount+"\n\n"+remainingPerson+" Person are in Queue");
-			System.out.println("\n\nThanks Visit Again!!!");
+			System.out.println("\n\n-------------------------Thanks Visit Again!!!--------------------------");
 			option = selectedOption();
-			callSwitchCase(queue);
+			callSwitchCase(utility);
 			break;
 			
 		default:
