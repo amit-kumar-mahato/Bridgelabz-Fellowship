@@ -1,22 +1,20 @@
+/*
+ * purpose : Take a range of 0 - 1000 Numbers and find the Prime numbers in that range.
+ * @author: Amit
+ * @version : 1.0
+ * @since : 02-11-2019
+ * */
 package com.bridgelabz.algorithmprograms;
+
+import com.bridgelabz.util.Utility;
 
 public class PrimeNumbers {
 	
 	public static void main(String[] args) {
+		Utility utility = new Utility();
 		for(int i=2;i<=1000;i++) {
-			checkForPrimeNumber(i);
+			if(utility.checkPrime(i))
+				System.out.print(i+" ");
 		}
-	}
-
-	private static void checkForPrimeNumber(int n) {
-		boolean result = false;
-		for(int i=2;i<=n/2;i++) {
-			if(n%i==0) {
-				result = true;
-				break;
-			}
-		}
-		if(result == false)
-			System.out.print(n+" ");
 	}
 }

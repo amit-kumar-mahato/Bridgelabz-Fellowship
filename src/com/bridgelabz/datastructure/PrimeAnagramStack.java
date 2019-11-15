@@ -26,7 +26,6 @@ public class PrimeAnagramStack {
 		}
 		
 		String numbers = myStack.display();
-		//System.out.print(numbers);
 		System.out.println("Anagrams in Reverse Ordeer :");
 		for(int i=numbers.length()-1;i>0;i--) {
 			System.out.print(numbers.charAt(i));

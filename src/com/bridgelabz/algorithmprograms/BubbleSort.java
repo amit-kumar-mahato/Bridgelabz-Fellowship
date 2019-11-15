@@ -8,19 +8,18 @@
  * */
 package com.bridgelabz.algorithmprograms;
 
-import java.util.Scanner;
+import com.bridgelabz.util.Utility;
 
 public class BubbleSort {
 	public static void main(String[] args) {
 		Utility utility = new Utility();
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the length of array :");
-		int n = sc.nextInt();
+		int n = utility.inputInteger();
 		
 		String[] array = new String[n];
 		System.out.println("Enter array element :");
 		for(int i=0;i<n;i++) {
-			array[i] = sc.next().toLowerCase();
+			array[i] = utility.inputString().toLowerCase();
 		}
 		array = utility.bubbleSort(array);
 		System.out.println("After Performing Bubble Sort :");

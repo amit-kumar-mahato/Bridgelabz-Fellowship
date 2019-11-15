@@ -9,47 +9,40 @@ package com.bridgelabz.algorithmprograms;
 
 import java.util.ArrayList;
 
-public class AnagramPalindrome {
-	static ArrayList list = new ArrayList();
+import com.bridgelabz.util.Utility;
+
+public class AnagramPalindrome{
+	static ArrayList palindromeList = new ArrayList();
+	static ArrayList anagramList = new ArrayList();
+	static ArrayList primeList = new ArrayList();
 	public static void main(String[] args) {
+		Utility utility = new Utility();
+		
 		for(int i=2;i<=1000;i++) {
-			checkForPrimeNumber(i);
-		}
-		for(Object i : list) {
-			//System.out.println((int)i);
-			checkForPalindrome((int) i);
-		}
-	}
-	
-	private static void checkForPrimeNumber(int n) {
-		boolean result = false;
-		for(int i=2;i<=n/2;i++) {
-			if(n%i==0) {
-				result = true;
-				break;
+			if(utility.checkPrime(i)) {
+				primeList.add(i);
+				palindromeList.add(i);
+				anagramList.add(i);
 			}
 		}
-		if(result == false) {
-			//System.out.print(n+" ");
-			list.add(n);
-		}
-			
-	}
-
-	private static void checkForPalindrome(int n) {
-		//System.out.print(n+" ");
 		
-		int temp = n;
-		int rem = 0;
-		int sum =0;
-		
-		while(n>0) {
-			rem = n%10;
-			sum = (sum*10)+rem;
-			n = n/10;
+		System.out.println("prime Numbers ");
+		for(Object i: primeList) {
+			System.out.print((int)i+" ");
 		}
-		if(temp == sum) {
-			System.out.print(temp+" ");
+		System.out.println("\n\nPrime Numbers that are Pallindrome ");
+		for(Object i: palindromeList) {
+			if(Utility.checkForPalindrome((int) i))
+				System.out.print(i+" ");
+		}
+		
+		System.out.println("\n\nPrime Numbers that are Anagram ");
+		Object[] array = primeList.toArray();
+		for(int i=0;i<array.length;i++) {
+			for(int j=i+1;j<array.length;j++) {
+				if(utility.anagram(array[i].toString(), array[j].toString()))
+					System.out.print(array[i]+" "+array[j]+" ");
+			}
 		}
 	}
 }

@@ -8,12 +8,12 @@
 
 package com.bridgelabz.basicprograms;
 
-import java.util.*;
+import com.bridgelabz.util.Utility;
 class PrimeFactors{
 	public static void main(String[] art){
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.print("Enter a value for N :");
-		int n = sc.nextInt();
+		int n = utility.inputInteger();
 		System.out.print("Prime Factors of "+n+ "are :");
 		
 		//Logic for finding prime factors of a number

@@ -1,14 +1,23 @@
+/*
+ * purpose : 2D arrays of integers, doubles, or booleans from
+				standard input and printing them out to standard output.
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ * */
 package com.bridgelabz.functionalprograms;
 
 import java.io.*;
 import java.util.*;
+
+import com.bridgelabz.util.Utility;
 class DemoArray{
 	public static void main(String[] agf){
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.println("Enter Column Size :");
-		int column = sc.nextInt();
+		int column = utility.inputInteger();
 		System.out.println("Enter Row Size :");
-		int row = sc.nextInt();
+		int row = utility.inputInteger();
 		
 		//Create array for integers element
 		int[][] array1 = new int[column][row];
@@ -16,7 +25,7 @@ class DemoArray{
 		for(int i=0;i<column; i++){
 			for(int j=0;j<row;j++){
 				//Inserting elements into array1
-				array1[i][j] = sc.nextInt();
+				array1[i][j] = utility.inputInteger();
 			}
 		}
 		
@@ -26,7 +35,7 @@ class DemoArray{
 		for(int i=0;i<column;i++){
 			for(int j=0;j<row;j++){
 				//Inserting elements into array2
-				array2[i][j] = sc.nextDouble();
+				array2[i][j] = utility.inputDouble();
 			}
 		}
 		
@@ -36,7 +45,7 @@ class DemoArray{
 		for(int i=0;i<column;i++) {
 			for(int j=0;j<row;j++) {
 				//Inserting boolean value 
-				booleanArray[i][j] = sc.nextBoolean();
+				booleanArray[i][j] = utility.inputBoolean();
 			}
 		}
 		display(array1,array2,booleanArray);

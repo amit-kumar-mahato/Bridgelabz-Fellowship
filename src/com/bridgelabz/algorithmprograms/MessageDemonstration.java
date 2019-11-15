@@ -13,30 +13,28 @@ import java.util.regex.Pattern;
 
 public class MessageDemonstration {
 	
-	String firstName;
-	String fullName;
-	String contactNumber;
-	String date;
+	static String firstName;
+	static String fullName;
+	static String contactNumber;
+	static String date;
 	
-	String message = "Hello <<name>>, We have your full name as <<full name>> in our system."
+	static String message = "Hello <<name>>, We have your full name as <<full name>> in our system."
 			+ "Your contact number is 91-XXXXXXXXXX. Please, let us know in case of any clarification."
 			+ "Thank you BridgeLabz 01/01/2016.";
+	
 	public static void main(String[] args) {
-		Utility utility = new Utility();
-		
-		MessageDemonstration demonstration = new MessageDemonstration();
-		demonstration.start(utility);
+		MessageDemonstration.start();
 	}
-	private void start(Utility utility) {
+	private static void start() {
 		getUserDetails();
-		message = utility.replace("<<name>>",firstName);
-		message = utility.replace("<<full name>>",fullName);
-		message = utility.replace("XXXXXXXXXX",contactNumber);
-		message = utility.replace("01/01/2016",date);
+		message = MessageDemonstration.replace("<<name>>",firstName);
+		message = MessageDemonstration.replace("<<full name>>",fullName);
+		message = MessageDemonstration.replace("XXXXXXXXXX",contactNumber);
+		message = MessageDemonstration.replace("01/01/2016",date);
 		System.out.println(message);
 	}
 	
-	private void getUserDetails() {
+	private static void getUserDetails() {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Enter your first name :");
@@ -50,5 +48,10 @@ public class MessageDemonstration {
 		
 		System.out.println("Enter date in dd/mm/yyyy format: ");
 		date = sc.nextLine();
+	}
+	public static String replace(String stringToBeReplaced, String replacement) {
+		Pattern pattern = Pattern.compile(stringToBeReplaced);
+		Matcher matcher = pattern.matcher(message);
+		return message = matcher.replaceAll(replacement);
 	}
 }

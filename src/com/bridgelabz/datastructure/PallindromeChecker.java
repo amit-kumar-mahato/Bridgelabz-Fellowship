@@ -21,13 +21,14 @@ public class PallindromeChecker {
 		
 		MyDeque<Character> utility = new MyDeque<>();
 		for(int i=0;i<s.length();i++) {
-			utility.add(ch[i]);
+			utility.addFront(ch[i]);
 		}
 		
 		for(int i=0;i<s.length();i++) {
-			temp.append(utility.removeRear());
+			temp.append(utility.removeFront());
 		}
 		
+		System.out.println("\nReverse :"+temp.toString());
 		if(s.equals(temp.toString()))
 			System.out.println("Given String is pallindrome!!!");
 		else

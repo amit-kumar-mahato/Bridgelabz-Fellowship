@@ -8,17 +8,17 @@
 
 package com.bridgelabz.basicprograms;
 
-import java.util.*;	
+import com.bridgelabz.util.Utility;	
 class Replace {
+	static String template = "Hello <<Username>>, How are you";
 	public static void main(String[] args){
-		String template = "Hello <<Username>>, How are you";
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.println("Enter username :");
-		String username = sc.next();
+		String username = utility.inputString();
 		if(username.length()<=3){
 			System.out.println("Username must be greater than 3 character!");
 			System.out.println("Please Enter a valid username :");
-			username = sc.next();
+			username = utility.inputString();
 		}
 		
 		template = template.replace("Username", username);

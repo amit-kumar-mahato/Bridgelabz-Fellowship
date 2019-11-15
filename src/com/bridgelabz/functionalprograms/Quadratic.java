@@ -1,14 +1,25 @@
+/*
+ * purpose : To find the roots of the equation a*x*x + b*x + c.
+				Since the equation is x*x, hence there are 2 roots. The 2 roots of the equation
+				can be found using a formula (Note: Take a, b and c as input values)
+				delta = b*b - 4*a*c
+				Root 1 of x = (-b + sqrt(delta))/(2*a)
+				Root 2 of x = (-b - sqrt(delta))/(2*a)
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ * */
 package com.bridgelabz.functionalprograms;
 
-import java.util.Scanner;
+import com.bridgelabz.util.Utility;
 
 public class Quadratic {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.println("Enter value for a,b and c :");
-		int a = sc.nextInt();
-		int b = sc.nextInt();
-		int c = sc.nextInt();
+		int a = utility.inputInteger();
+		int b = utility.inputInteger();
+		int c = utility.inputInteger();
 		
 		double x1,x2;
 		

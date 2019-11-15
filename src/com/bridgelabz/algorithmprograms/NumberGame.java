@@ -1,3 +1,11 @@
+/*
+ * purpose : takes a command-line argument N, asks you to think of a number
+			between 0 and N-1, where N = 2^n, and always guesses the answer with n
+			questions
+ * @author: Amit
+ * @version : 1.0
+ * @since : 02-11-2019
+ * */
 package com.bridgelabz.algorithmprograms;
 
 import java.util.Scanner;
@@ -11,15 +19,10 @@ public class NumberGame {
 		int n = sc.nextInt();
 
 		int chance =(int)Math.ceil(Math.sqrt(n));
-		//int num = (int) Math.ceil(numberOfChance);
-		//System.out.println("Chance :"+numberOfChance+" num :"+num);
 		
 		NumberGame game = new NumberGame();
 		game.findNumber(chance,n);
 		
-		/*for(int i=0;i<array.length-1;i++) {
-			System.out.print(array[i]+" ");
-		}*/
 	}
 	private void findNumber(int chance, int n) {
 		this.numberOfChance = chance;
@@ -60,66 +63,6 @@ public class NumberGame {
 				flag = false;
 				break;
 			}
-
-		}
-		
+		}	
 	}
-	
-	/*int[] numberArray;	//	array of numbers of given range
-	Scanner scanner;	//	scanner to get user input
-	int count = 0;	
-	int  ans;	//	the number in mind
-	int N;	//	range	
-	double  maxCount = 0;	//	number of times question will be asked
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		NumberGame findYourNumber = new NumberGame();
-		findYourNumber.start();
-	}
-	void start() {
-		scanner = new Scanner(System.in);
-		System.out.print("Enter limit N: ");
-		N = scanner.nextInt();
-
-		numberArray = new int[N];	//	array initialisation
-		//	fills the array 
-		for(int i = 0; i < N; i++) {
-			numberArray[i] = i;
-		}
-		
-		//	calculates maximum count of questions
-		maxCount = Math.ceil(Math.sqrt(N));
-		System.out.println("Number of tries required to guess: " + ((int)maxCount));
-		binarySearch(0, N-1);
-	}
-	void binarySearch(int first, int last) {
-		if(count < maxCount) {
-			int	middle = (first + last) / 2;
-			count++;
-			System.out.println("Is number between " + first  + " and " + middle + " ? if yes press 1 otherwise press 2");
-			int temp = scanner.nextInt();
-			if(temp==1) {
-				change(middle+1 , last);
-				binarySearch(first , middle);				
-			}
-			else if(temp==2){
-				change(first , middle);
-				binarySearch(middle + 1, last);
-			}
-		}
-		else {
-			for(int i : numberArray) {
-				if(i != -1) {
-					System.out.println("The number is: " + i);
-				}
-			}
-		}
-	}
-	void change(int first , int last) {
-		for(int i = first; i <= last; i++) {
-			numberArray[i] = -1;
-		}
-	}*/
 }

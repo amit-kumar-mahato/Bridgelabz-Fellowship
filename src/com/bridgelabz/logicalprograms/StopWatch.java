@@ -1,53 +1,24 @@
+/*
+ * purpose : Write a Stopwatch Program for measuring the time that elapses between
+			the start and end clicks
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ */
 package com.bridgelabz.logicalprograms;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import com.bridgelabz.util.Utility;
+
 public class StopWatch {
-	/*public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("Please enter time to start the StopWatch in this format(hh:mm:ss) : ");
-		String startTime = sc.next();
-		LocalTime localTime = LocalTime.parse(startTime);
-		String string = String.valueOf(localTime);
-		String[] t1 = string.split(":");
-		int h1 = Integer.parseInt(t1[0]);
-		int m1 = Integer.parseInt(t1[1]);
-		int s1 = Integer.parseInt(t1[2]);
-		
-		System.out.println("\nPlease enter time to stop the StopWatch in this format(hh:mm:ss) : ");
-		String endTime = sc.next();
-		LocalTime localTime2 = LocalTime.parse(endTime);
-		String s = String.valueOf(localTime2);
-		String[] t = s.split(":");
-		int h2 = Integer.parseInt(t[0]);
-		int m2 = Integer.parseInt(t[1]);
-		int s2 = Integer.parseInt(t[2]);
-		
-		int minutes = 0;
-		int seconds = 0;
-		if(h2>=h1) {
-			if(m1>m2) 
-				minutes = m1-m2;
-			else
-				minutes = m2-m1;
-			if(s1>s2)
-				seconds = s1-s2;
-			else
-				seconds = s2-s1;
-			
-			System.out.println("Elapsed Time : "+(h2-h1)+" Hours :"+minutes+" Minutes : "+seconds+" Seconds");	
-		}
-		else
-			System.out.println("Stop time should be greater than start time");
-	}*/
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.print("Please enter 1 to start StopWatch : ");
-		int t1 = sc.nextInt();
+		int t1 = utility.inputInteger();
 		
 		String[] parts1 = null;
 		int h1 = 0,m1 = 0,s1 = 0,h2 = 0,m2 = 0,s2 = 0;;
@@ -72,7 +43,7 @@ public class StopWatch {
 		}
 		
 		System.out.print("Please enter 2 to stop StopWatch : ");
-		int t2 = sc.nextInt();
+		int t2 = utility.inputInteger();
 		
 		if(t2 == 2) {
 			
