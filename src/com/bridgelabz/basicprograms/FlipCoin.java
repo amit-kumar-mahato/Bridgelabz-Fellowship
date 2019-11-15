@@ -7,13 +7,13 @@
  * */
 package com.bridgelabz.basicprograms;
 
-import java.util.*;
-import java.lang.Math.*;
+import com.bridgelabz.util.Utility;
 class FlipCoin{
 	public static void main(String[] args){
-		Scanner sc = new Scanner(System.in);
+
+		Utility utility = new Utility();
 		System.out.println("Number of Times to Flip the coin :");
-		int count = sc.nextInt();
+		int count = utility.inputInteger();
 		int numberOfHeads = 0;
 		int numberOfTails = 0;
 		

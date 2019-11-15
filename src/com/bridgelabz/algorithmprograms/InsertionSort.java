@@ -7,20 +7,19 @@
  * */
 package com.bridgelabz.algorithmprograms;
 
-import java.util.Scanner;
+import com.bridgelabz.util.Utility;
 
 public class InsertionSort {
 	public static void main(String[] args) {
 		Utility utility = new Utility();
-		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter the array length :");
-		int n = sc.nextInt();
+		int n = utility.inputInteger();
 		
 		String[] arr = new String[n];
 		
 		System.out.println("Enter the array element :");
 		for(int i=0;i<n;i++) {
-			arr[i] = sc.next().toLowerCase();
+			arr[i] = utility.inputString().toLowerCase();
 		}
 		
 		arr = utility.insertionSort(arr);

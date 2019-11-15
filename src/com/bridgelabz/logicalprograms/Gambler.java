@@ -1,17 +1,25 @@
+/*
+ * purpose : Simulates a gambler who start with $stake and place fair $1 bets until
+				he/she goes broke (i.e. has no money) or reach $goal. Keeps track of the number of
+				times he/she wins and the number of bets he/she makes.
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ * */
 package com.bridgelabz.logicalprograms;
 
-import java.util.Scanner;
+import com.bridgelabz.util.Utility;
 
 public class Gambler {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.println("Enter $Stake Amount :");
-		int stakeAmount = sc.nextInt();
+		int stakeAmount = utility.inputInteger();
 		System.out.println("Enter $Goal Amount :");
-		int goalAmount = sc.nextInt();
+		int goalAmount = utility.inputInteger();
 		System.out.println("Enter Number of times tried :");
-		int tried = sc.nextInt();
-		//int totalAmount = stakeAmount;
+		int tried = utility.inputInteger();
+		
 		int numberOfWins = 0;
 		int numberofBets = 0;
 		int numberOfLoss = 0;

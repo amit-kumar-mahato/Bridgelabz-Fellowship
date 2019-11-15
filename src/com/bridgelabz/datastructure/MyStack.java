@@ -1,43 +1,68 @@
 package com.bridgelabz.datastructure;
 
-public class MyStack<T extends Comparable<T>>{
-	MyLinkedList<T> myLinkedList;
-	
+public class MyStack<T>{
+	Node1<T>  head;
+	int count=0;
 
 	/**
 	 * Constructor creates an object of MyLinkedList and
 	 * initializes linked list 
 	 */
 	public MyStack() {
-		myLinkedList = new MyLinkedList<>();
+		head = null;
 	}
 	
 
 	/**
-	 * @param data - element to be added at front of the queue
+	 * @param data - element to be added into the list
 	 * 
 	 */
 	public void push(T data) {
-		myLinkedList.add( data);
+		Node1<T> node = new Node1<T>();
+		node.data = data;
+		node.next=head;
+		head=node;
+		count++;
 	}
 	
 	public void pop(){
-		myLinkedList.pop();
+		if(head==null)
+		{
+			System.out.println("Stack UnderFlow");
+			return;
+		}
+		Node1<T> temp=head;
+		head=temp.next;
+		temp=null;
+		count--;
 	}
 	
 	public T peek(){
-		return myLinkedList.peek();
+		if(head==null)
+		{
+			System.out.println("no data present");
+		}
+			T temp=head.data;
+			return temp;
 	}
 	
 	public boolean isEmpty(){
-		return myLinkedList.isEmpty();
+		return count == 0 ? true : false;
 	}
 	
 	public int size(){
-		return myLinkedList.size();
+		return count;
 	}
 	
 	public String display() {
-		return myLinkedList.show();
+		Node1<T> node = head;
+		String temp="";
+		
+		while (node.next != null) {
+			temp += node.data+" ";
+			node = node.next;
+		}
+		temp += node.data;
+		return temp;
 	}
 }

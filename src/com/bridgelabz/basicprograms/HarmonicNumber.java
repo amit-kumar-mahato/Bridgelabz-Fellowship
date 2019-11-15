@@ -7,16 +7,15 @@
  * */
 package com.bridgelabz.basicprograms;
 
-import java.util.*;
-import java.io.*;
+import com.bridgelabz.util.Utility;
 class HarmonicNumber{
 	public static void main(String[] artgs){
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		System.out.println("Enter the value for n :");
-		int n = sc.nextInt();
+		int n = utility.inputInteger();
 		float result = 0f;
 		if(n>0){
-			Utility utility = new Utility();
+			
 			result = utility.harmonicNumber(n);
 			System.out.println("Nth Harmonic value is :"+result);
 		}

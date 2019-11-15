@@ -8,8 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.bridgelabz.customexception.NoDataPresentException;
+
 public class UnorderedList1 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoDataPresentException {
 		Scanner sc = new Scanner(System.in);
 		try {
 			FileReader fileReader = new FileReader("/home/user/Documents/Amit/file.txt");

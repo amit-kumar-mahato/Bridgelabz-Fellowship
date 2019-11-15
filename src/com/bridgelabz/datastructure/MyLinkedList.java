@@ -1,6 +1,6 @@
 package com.bridgelabz.datastructure;
 
-import java.util.Arrays;
+import com.bridgelabz.customexception.NoDataPresentException;
 
 public class MyLinkedList<T extends Comparable<T>> {
 
@@ -18,7 +18,7 @@ public class MyLinkedList<T extends Comparable<T>> {
 	 * 
 	 */
 	public void add(T data) {
-		Node1<T> node = new Node1<T>();
+		Node1<T> node = new Node1<>();
 		node.data = data;
 		node.next = null;
 		
@@ -38,19 +38,19 @@ public class MyLinkedList<T extends Comparable<T>> {
 	
 	/**
 	 * @param data - elements to be searched in the list
+	 * @throws NoDataPresentException 
 	 * @returns index value if the element is in the list else returns -1
 	 */
-	public int search(T data) {
+	public int search(T data) throws NoDataPresentException {
 		Node1<T> node = head;
 		int count = 0;
 		if(head == null) {
-			System.out.println("Your List has no Data");
+			throw new NoDataPresentException();
 		}
 		else {
 			
 			while(node.next != null) {
 				if(data.compareTo(node.data) == 0) {
-					//System.out.println("Data found :"+node.data);
 					return count;
 				}
 				node = node.next;
@@ -221,49 +221,4 @@ public class MyLinkedList<T extends Comparable<T>> {
 		return size == 0 ? true : false;
 	}
 	
-	/**
-	 * @param range- up to which prime numbers are to be found
-	 * @returns string array of prime numbers in  a given range
-	 *//*
-	public String[] prime(int range) {
-		String[] array = new String[1000];
-		int position = 0;
-		for(int i = 2; i <= range; i++) {
-			boolean isPrime = true;
-			for(int j = 2; j <= i / 2; j++) {
-				if((i % j) == 0) {
-					isPrime = false;
-					break;
-				}
-			}
-			if(isPrime) {
-				array[position] = String.valueOf(i);
-				position++;
-			}
-		}
-		String[] returnArray = new String[position];
-		for(int k = 0; k < position; k++) {
-			returnArray[k] = array[k];
-		}
-		return returnArray;
-	}
-	
-	*//** Returns true if strings are anagram else returns false **//*
-	public boolean anagram(String string1, String string2) {
-		if(string1.length() != string2.length()) {
-			return false;
-		}
-		char[] array1 = string1.toCharArray();
-		Arrays.sort(array1);
-		char[] array2 = string2.toCharArray();
-		Arrays.sort(array2);
-		
-		for(int i = 0; i < array1.length; i++) {
-			if(array1[i] != array2[i]) {
-				return false;
-			}
-		}
-		return true;
-	}*/
-
 }

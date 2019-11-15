@@ -1,3 +1,12 @@
+/*
+ * purpose : Write a Program to play a Cross Game or Tic-Tac-Toe Game. Player 1
+			is the Computer and the Player 2 is the user. Player 1 take Random Cell that is
+			the Column and Row.
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ *
+ **/
 package com.bridgelabz.logicalprograms;
 
 import java.util.Scanner;

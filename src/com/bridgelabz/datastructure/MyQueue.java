@@ -1,7 +1,7 @@
 package com.bridgelabz.datastructure;
 
-public class MyQueue<T> {
-	MyLinkedList<Integer> myLinkedList;
+public class MyQueue<T extends Comparable<T>> {
+	MyLinkedList<T> myLinkedList;
 
 	/**
 	 * Constructor creates an object of MyLinkedList and
@@ -16,7 +16,7 @@ public class MyQueue<T> {
 	 * adds element a the end of the list
 	 */
 	public void enqueue(T data){
-		myLinkedList.add((Integer) data);
+		myLinkedList.add(data);
 	}
 	
 	/**
@@ -40,6 +40,8 @@ public class MyQueue<T> {
 	public int size(){
 		return myLinkedList.size();
 	}
-	
+	public String display() {
+		return myLinkedList.show();
+	}
 
 }

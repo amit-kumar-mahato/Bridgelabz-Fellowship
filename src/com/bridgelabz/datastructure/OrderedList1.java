@@ -8,17 +8,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.bridgelabz.customexception.NoDataPresentException;
+
 public class OrderedList1 {
 	static Scanner sc  = new Scanner(System.in);
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
 		System.out.println("Initial List :");
 		String line;
 		String[] str;
 		
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader("/home/user/Documents/Amit/file.txt"));
-			try {
+		try(BufferedReader reader = new BufferedReader(new FileReader("/home/user/Documents/Amit/file.txt"));
+				BufferedWriter writer = new BufferedWriter(new FileWriter("/home/user/Documents/Amit/file.txt"));) {
+			
+
 				line = reader.readLine();
 				str = line.split(" ");
 				int[] array = new int[str.length];
@@ -49,17 +52,10 @@ public class OrderedList1 {
 				line = myLinkedList.show();
 				System.out.print("Final List :\n"+line);
 				
-				BufferedWriter writer = new BufferedWriter(new FileWriter("/home/user/Documents/Amit/file.txt"));
+				
 				writer.write(line);
 				
-				reader.close();
-				writer.close();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | NoDataPresentException e) {
 			e.printStackTrace();
 		}
 	}

@@ -1,4 +1,11 @@
- package com.bridgelabz.functionalprograms;
+/*
+ * purpose : A program with cubic running time. Read in N integers and counts the
+			number of triples that sum to exactly 0.
+ * @author : Amit
+ * @version : 1.0
+ * @since : 26-10-2019
+ * */
+package com.bridgelabz.functionalprograms;
 
 import java.util.Scanner;
 

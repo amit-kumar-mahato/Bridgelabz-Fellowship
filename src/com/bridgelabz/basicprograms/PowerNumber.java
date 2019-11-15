@@ -1,24 +1,14 @@
 package com.bridgelabz.basicprograms;
 
-/*
- * Purpose: Find Power of 2
- * @author Amit
- * @version 1.0
- * @since 07-11-2019
- * 
- * */
-
-import java.util.*;
-import java.lang.*;
+import com.bridgelabz.util.Utility;
 class PowerNumber{
 	public static void main(String[] artgs){
-		Scanner sc = new Scanner(System.in);
+		Utility utility = new Utility();
 		
 		System.out.println("Enter a value for n :");
-		int n = sc.nextInt();
+		int n = utility.inputInteger();
 		
 		if(n>=0 && n<=31){
-			Utility utility = new Utility();
 			int[] array = new int[n+1];
 			array = utility.power(n);
 			

@@ -11,7 +11,7 @@ public class BalancedParentheses {
 	
 	public static void main(String[] args) {
 		MyStack<Character> utility = new MyStack<>();
-		String expression = "((5+6)*(7+8)/(4+3)(5+6)*(7+8)/(4+3)";
+		String expression = "(5+6)*(7+8)/(4+3)(5+6)*(7+8)/(4+3)";
 	
 		char[] ch = expression.toCharArray();
 		for(int i=0;i<ch.length;i++) {
