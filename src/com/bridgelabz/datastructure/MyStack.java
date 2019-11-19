@@ -5,15 +5,6 @@ public class MyStack<T>{
 	int count=0;
 
 	/**
-	 * Constructor creates an object of MyLinkedList and
-	 * initializes linked list 
-	 */
-	public MyStack() {
-		head = null;
-	}
-	
-
-	/**
 	 * @param data - element to be added into the list
 	 * 
 	 */
@@ -25,16 +16,16 @@ public class MyStack<T>{
 		count++;
 	}
 	
-	public void pop(){
+	public T pop(){
 		if(head==null)
 		{
 			System.out.println("Stack UnderFlow");
-			return;
+			return null;
 		}
 		Node1<T> temp=head;
 		head=temp.next;
-		temp=null;
 		count--;
+		return temp.data;
 	}
 	
 	public T peek(){

@@ -150,11 +150,17 @@ public class MyLinkedList<T extends Comparable<T>> {
 	/*
 	 * pop element from stack 
 	 */
-	public void pop() {
-		if(head == null)
+	public T pop() {
+		Node1<T> tmp=head;
+		if(head == null) {
 			System.out.println("Stack Underflow!!!");
+			return null;
+		}
+		else {
 		head = head.next;
 		size--;
+		return tmp.data;
+		}
 	}
 	
 	/*

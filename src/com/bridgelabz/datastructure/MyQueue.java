@@ -23,8 +23,8 @@ public class MyQueue<T extends Comparable<T>> {
 	 * removes first element in the list
 	 * @returns removed element
 	 */
-	public void dequeue(){
-		myLinkedList.pop();
+	public T dequeue(){
+		return myLinkedList.pop();
 	}
 	
 	/**

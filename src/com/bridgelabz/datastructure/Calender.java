@@ -11,16 +11,67 @@
 package com.bridgelabz.datastructure;
 
 import com.bridgelabz.util.Utility;
+//import static com.bridgelabz.util.Utility.*;
 
 public class Calender {
-	
+
 	public static void main(String[] args) {
+
+		System.out.println("Calender ...");
+		Utility.calender(11, 2019);
+
+		System.out.println("Calender With MyQueue...");
+		MyQueue<String> weekQ = new MyQueue<>();
+		MyQueue<String> dateQ = new MyQueue<>();
+
+		for (int i = 0; i < Utility.dayName.length; i++) {
+			weekQ.enqueue(Utility.dayName[i]);
+		}
+
+		for (int i = 0; i < Utility.totalDays.length; i++) {
+			for (int j = 0; j < Utility.totalDays[i].length; j++) {
+				if(Utility.totalDays[i][j]<10) {
+					dateQ.enqueue(String.valueOf(Utility.totalDays[i][j])+" ");
+				}else {
+					dateQ.enqueue(String.valueOf(Utility.totalDays[i][j]));
+				}
+			}
+			dateQ.enqueue("\n");
+		}
 		
-		Utility utility = new Utility();
-		System.out.println("Enter month and year");
-		int month = utility.inputInteger();
-		int year = utility.inputInteger();
-		utility.calender(month,year);
+		while(weekQ.size()>0) {
+			System.out.print(weekQ.dequeue()+"  ");
+		}
+		System.out.println();
+		while(dateQ.size()>0) {
+			String tmp=dateQ.dequeue();
+			System.out.print((tmp.contains("-1")?"  ":tmp)+" ");
+		}
+		System.out.println("Calender With Stack...");
+		MyStack<String> weekstk = new MyStack<>();
+		MyStack<String> datestk = new MyStack<>();
+
+		for (int i = Utility.dayName.length-1; i >=0 ; i--) {
+			weekstk.push(Utility.dayName[i]);
+		}
+
+		for (int i = Utility.totalDays.length-1; i >=0 ; i--) {
+			for (int j = Utility.totalDays[i].length-1; j >=0 ; j--) {
+				if(Utility.totalDays[i][j]<10) {
+					datestk.push(String.valueOf(Utility.totalDays[i][j])+" ");
+				}else {
+					datestk.push(String.valueOf(Utility.totalDays[i][j]));}
+			}
+			datestk.push("\n");
+		}
 		
+		while(weekstk.size()>0) {
+			System.out.print(weekstk.pop()+"  ");
+		}
+		while(datestk.size()>0) {
+			String tmp=datestk.pop();
+			System.out.print((tmp.contains("-1")?"  ":tmp)+" ");
+		}
+
 	}
 }
