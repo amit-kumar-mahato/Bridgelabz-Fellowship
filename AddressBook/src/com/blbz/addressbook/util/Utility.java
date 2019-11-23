@@ -1,16 +1,10 @@
 package com.blbz.addressbook.util;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.blbz.addressbook.controller.AddressBookController;
 
@@ -106,7 +100,7 @@ public class Utility {
 		return false;
 	}
 
-	public static JSONObject readData() {
+	/*public static JSONObject readData() {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = new JSONObject();
 
@@ -122,5 +116,15 @@ public class Utility {
 			e.printStackTrace();
 		}
 		return jsonObject;
+	}*/
+	
+	public static FileWriter fileWriterObject() {
+		FileWriter fileWriter=null;
+		try{
+			fileWriter = new FileWriter("JsonFile");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileWriter;
 	}
 }

@@ -1,6 +1,7 @@
 package com.blbz.addressbook.controller;
 
-import org.json.simple.JSONArray;
+import java.io.File;
+
 import org.json.simple.JSONObject;
 
 import com.blbz.addressbook.model.Person;
@@ -17,7 +18,60 @@ public class AddressBookController {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
-		System.out.println("Select following option to perform some action..");
+		AddressBookController.addressBookMenu();
+		//AddressBookController.personMenu();
+		
+	}
+
+	/*public static void menu() {
+		System.out.println("Please select a menu");
+		System.out.println("1.Address Book Manager");
+		System.out.println("2.Person Management");
+		
+		String select = Utility.inputString();
+		if(Utility.stringChecker(select)) {
+			switch(select) {
+			case "1":
+				addressBookMenu();
+				break;
+			case "2":
+				//personMenu();
+				break;
+			}
+		}
+	}
+*/
+	public static void addressBookMenu() {
+		System.out.println("1. Add Address Book");
+		System.out.println("2. Delete Address Book");
+		System.out.println("3. Select Address Book");
+		String select = Utility.inputString();
+		if(Utility.stringChecker(select)) {
+			switch (select) {
+			case "1":
+				System.out.println("Enter Address Book Name");
+				name = Utility.inputString();
+				bookService.addAddressBook(name);
+				addressBookMenu();
+				break;
+			case "2":
+				System.out.println("Enter Address Book Name");
+				name = Utility.inputString();
+				bookService.deleteAddressBook(name);
+				addressBookMenu();
+				break;
+			case "3":
+				File file = bookService.listOfFiles();
+				//System.out.println("Controller :"+file);
+				personMenu(file);
+			break;
+			default:
+				break;
+			}
+		}
+	}
+	public static void personMenu(File file) {
+		System.out.println("\nSelect following option to perform some action..\n");
 		System.out.println("1. Add a person");
 		System.out.println("2. Edit");
 		System.out.println("3. Delete a person");
@@ -27,25 +81,31 @@ public class AddressBookController {
 		if(Utility.stringChecker(select)) {
 			switch (select) {
 			case "1":
-				AddressBookController.addUser();
+				//AddressBookController.addUser();
+				JSONObject temp = AddressBookServiceImpl.addUser(file);
+				AddressBookRepository.writeDataNew(temp, file);
+				personMenu(file);
 				break;
 			case "2":
 				System.out.println("Enter the first name :");
 				name = Utility.inputString();
-				bookService.edit(name);
+				bookService.edit(file, name);
+				personMenu(file);
 				break;
 			case "3":
 				System.out.println("Enter first name :");
 				name = Utility.inputString();
-				bookService.delete(name);
+				bookService.delete(file,name);
+				personMenu(file);
 				break;
 			case "4":
 				System.out.println("Enter first name :");
 				name = Utility.inputString();
-				JSONObject object = bookService.search(name);
-				//array.forEach(person -> AddressBookServiceImpl.displayPersonDetails((JSONObject)person));
+				bookService.search(file,name);
+				personMenu(file);
 				break;
 			case "5":
+				System.out.println("Thanks!!!");
 				break;
 			default:
 				break;
@@ -55,8 +115,8 @@ public class AddressBookController {
 
 	public static void addUser() {
 		String firstName,lastName,address,city,state;
-		int zip;
-		long mobile;
+		String zip;
+		String mobile;
 		
 		JSONObject jsonObject = bookRepository.readData();
 		jsonObject = (JSONObject) jsonObject.get("Address Book");
@@ -80,20 +140,25 @@ public class AddressBookController {
 		state = Utility.getString(false);
 
 		System.out.println("Enter Zip Code:");
-		zip = Utility.inputinteger();
+		zip = Utility.inputString();
+		if (Utility.stringChecker(zip)) {
+			person.setZip(Integer.parseInt(zip));
+		}
 		
 		System.out.println("Enter 10 digit Phone Number :");
-		mobile = Utility.inputLong();
+		mobile = Utility.inputString();
+		if (Utility.stringChecker(zip)) {
+			person.setPhonenumber(Long.parseLong(mobile));
+		}
 		
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setCity(city);
 		person.setAddress(address);
 		person.setState(state);
-		person.setZip(zip);
-		person.setPhonenumber(mobile);
 		
 		bookService.store(person);
+		personMenu(null);
 		
 	}
 }
