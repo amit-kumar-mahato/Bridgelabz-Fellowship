@@ -12,6 +12,12 @@ import com.blbz.repository.CliniqueRepository;
 import com.blbz.service.CliniqueService;
 import com.blbz.util.Utility;
 
+/*
+ * Purpose: This class will provide the implentation of those methods which are available in CliniqueService interface
+ * @author: Amit
+ * @since: 24-11-2019
+ * 
+ * */
 public class CliniqueServiceImpl implements CliniqueService {
 	JSONArray jsonArray = new JSONArray();
 	JSONObject jsonObject = new JSONObject();
@@ -21,7 +27,7 @@ public class CliniqueServiceImpl implements CliniqueService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public JSONArray doctorDetails() {
+	public void doctorDetails() {
 
 		jsonArray = CliniqueRepository.readData(doctor);
 
@@ -57,55 +63,61 @@ public class CliniqueServiceImpl implements CliniqueService {
 
 		System.out.println(jsonArray);
 		CliniqueRepository.writeData(doctor, jsonArray);
-		return jsonArray;
 
 	}
 
 
 	/** Reads doctor's data from json file **/
 	@Override
-	public void readDoctorData(String key, String value) {
-
-		// adds json data to json array
-		JSONArray jsonArray = CliniqueRepository.readData(doctor);
-		// iterator to iterate json data
-		Iterator iterator = jsonArray.iterator();
-		// json objects top store json data from array
-		JSONObject jsonObject, lastJasonObject = null;
-
-		// iterates over json array
-		while (iterator.hasNext()) {
-			// checks if data given by user matches with any json object
-			// and if present prints it
-			if ((jsonObject = (JSONObject) iterator.next()).get(key).equals(value)) {
-				lastJasonObject = jsonObject;
-				System.out.println("\nDoctor Information:");
-				System.out.println("ID: " + jsonObject.get("Id") + "\t");
-				System.out.println("Name: " + jsonObject.get("Name") + "\t");
-				System.out.println("Specialization: " + jsonObject.get("Specialization") + "\t");
-				System.out.println("Availability: " + jsonObject.get("Availability") + "\t");
-				System.out.println("Number of Patients: " + jsonObject.get("Patients") + "\n");
+	public void readDoctorData(String key, String value,String choice) {
+		
+			//	adds json data to json array
+			jsonArray = (JSONArray) CliniqueRepository.readData(doctor);
+			//	iterator to iterate json data
+			Iterator iterator = jsonArray.iterator();
+			//	json objects top store json data from array
+			JSONObject jsonObject, lastJasonObject = null;
+			
+			//	iterates over json array
+			while (iterator.hasNext()) {
+				//	checks if data given by user matches with any json object
+				//	and if present prints it
+				if ((jsonObject = (JSONObject) iterator.next()).get(key).equals(value)) {
+					lastJasonObject = jsonObject;
+					System.out.println("\nDoctor Information:");
+					System.out.println("ID: " + jsonObject.get("Id") + "\t");
+					System.out.println("Name: " + jsonObject.get("Name") + "\t");
+					System.out.println("Specialization: " + jsonObject.get("Specialization") + "\t");
+					System.out.println("Availability: " + jsonObject.get("Availability") + "\t");
+					System.out.println("Number of Patients: " + jsonObject.get("Patients") + "\n");
+					
+					//asks user if want to take an appointment
+					System.out.println("Do you want to take an appointment?[y/n]");
+					String response = Utility.inputString().toLowerCase();
+					if (response.equals("y")) {
+						makeAppointment(lastJasonObject);
+					}
+					else {
+						ClinicController.menu();
+					}
+				}
 			}
-		}
-
-		// asks user if want to take an appointment
-		System.out.println("Do you want to take an appointment?[y/n]");
-		String response = Utility.inputString().toLowerCase();
-		if (response.equals("y")) {
-			makeAppointment(lastJasonObject);
-		}
+			System.out.println("Enter valid Doctor "+key);
+			ClinicController.doctorChoice(choice);
 	}
 
 	private void makeAppointment(JSONObject doctorJsonObject) {
+		String doctorId = (String) doctorJsonObject.get("Id");
 		long patients = (long) doctorJsonObject.get("Patients");
-		//long patients = Long.parseLong(numberOfPatients);
-		if (patients == 5) { // doctor is busy
+		if (patients >= 5) { // doctor is busy
 			System.out.println("Sorry!!! Doctor is busy today. Make an appointment tomorrow.");
-		} else { // doctor is not busy. Increases number of patients and updates json file
-			String id = Utility.patientId(); // generates random id
-			// updatePatientData(id); // updates patient json file
-			patientDetailsNew(id);
-			//numberOfPatients = String.valueOf((patients + 1));
+			ClinicController.menu();
+		} 
+		// doctor is not busy. Increases number of patients and updates json file
+		else { 
+			String id = Utility.patientId(); 
+			// updates patient json file
+			patientDetailsNew(id,doctorId);
 			doctorJsonObject.put("Patients", patients+1);
 			updateDoctorData(doctorJsonObject);
 			System.out.println("Congratulation You got an appointment. Your Patient ID is " + id + "\n");
@@ -136,9 +148,9 @@ public class CliniqueServiceImpl implements CliniqueService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void patientDetailsNew(String id) {
+	public void patientDetailsNew(String id, String doctorId) {
 
-		jsonArray = CliniqueRepository.readData(patient);
+		JSONArray jsonArray = CliniqueRepository.readData(patient);
 
 		PatientDetails patientDetails = new PatientDetails();
 		System.out.println("Enter Patient Name");
@@ -164,9 +176,10 @@ public class CliniqueServiceImpl implements CliniqueService {
 		jsonObject.put("Name", patientDetails.getPatientName());
 		jsonObject.put("Mobile", patientDetails.getMobile());
 		jsonObject.put("Age", patientDetails.getAge());
+		jsonObject.put("Doctor Id",doctorId);
 
 		jsonArray.add(jsonObject);
-		System.out.println(jsonArray);
+		//System.out.println(jsonArray);
 		CliniqueRepository.writeData(patient, jsonArray);
 	}
 
@@ -184,6 +197,7 @@ public class CliniqueServiceImpl implements CliniqueService {
 				System.out.println("Age: " + jsonObject.get("Age") + "\n");
 			}
 		}
+		ClinicController.menu();
 	}
 
 }

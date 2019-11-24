@@ -6,8 +6,9 @@ import com.blbz.util.Utility;
 
 public class ClinicController {
 	static CliniqueService service = new CliniqueServiceImpl();
+
 	public static void main(String[] args) {
-		
+
 		menu();
 	}
 
@@ -16,26 +17,36 @@ public class ClinicController {
 		System.out.println("1. Add Doctor Details");
 		System.out.println("2. Search Doctor");
 		System.out.println("3. Search Patient");
-		
-		int choice = Utility.inputinteger();
-		
-		switch (choice) {
-		case 1:
-			service.doctorDetails();
+		System.out.println("4. Exit");
+
+		String choice = Utility.inputString();
+		if (Utility.intChecker(choice)) {
+			switch (choice) {
+			case "1":
+				service.doctorDetails();
+				menu();
+				break;
+			case "2":
+				doctorInput();
+				break;
+			case "3":
+				patientInput();
+				break;
+			case "4":
+				Utility.quit();
+				System.out.println("Thanks!!! Have a nice Day ");
+				break;
+			default:
+				System.out.println("Invalid option");
+				menu();
+				break;
+			}
+		}
+		else {
+			System.out.println("Enter numbers only");
 			menu();
-			break;
-		case 2:
-			doctorInput();
-			break;
-		case 3:
-			patientInput();
-			break;
-		default:
-			System.out.println("Invalid option");
-			break;
 		}
 	}
-
 
 	private static void doctorInput() {
 		System.out.println("Search doctor by:");
@@ -43,59 +54,73 @@ public class ClinicController {
 		System.out.println("2. ID");
 		System.out.println("3. Specialization");
 		System.out.println("4. Availability");
-		int choice = Utility.inputinteger();
-		doctorChoice(choice);
-	}
-
-	private static void doctorChoice(int choice) {
-		switch (choice) {
-		case 1:
-			Utility.inputString();
-			System.out.print("Enter name:");
-			service.readDoctorData("Name", Utility.inputString());
-			break;
-		case 2:
-			Utility.inputString();
-			System.out.print("Enter ID:");
-			service.readDoctorData("Id", Utility.inputString());
-			break;
-		case 3:
-			Utility.inputString();
-			System.out.print("Enter speacialization:");
-			service.readDoctorData("Specialization", Utility.inputString());
-			break;
-		case 4:
-			Utility.inputString();
-			System.out.print("Enter availability::");
-			service.readDoctorData("Availability", Utility.inputString());
-			break;
+		String choice = Utility.inputString();
+		if (Utility.intChecker(choice)) {
+			doctorChoice(choice);
+		}
+		else {
+			System.out.println("Enter numbers only");
+			doctorInput();
 		}
 	}
-	
+
+	public static void doctorChoice(String choice) {
+		switch (choice) {
+		case "1":
+			System.out.print("Enter name:");
+			service.readDoctorData("Name", Utility.inputString(),choice);
+			break;
+		case "2":
+			System.out.print("Enter ID:");
+			service.readDoctorData("Id", Utility.inputString(),choice);
+			break;
+		case "3":
+			System.out.print("Enter speacialization:");
+			service.readDoctorData("Specialization", Utility.inputString(),choice);
+			break;
+		case "4":
+			System.out.print("Enter availability::");
+			service.readDoctorData("Availability", Utility.inputString(),choice);
+			break;
+		default:
+			System.out.println("select valid option\n");
+			doctorChoice(choice);
+		}
+	}
+
 	private static void patientInput() {
 		System.out.println("Search patient by:");
 		System.out.println("1. Name");
 		System.out.println("2. ID");
 		System.out.println("3. Mobile Number");
-		int choice = Utility.inputinteger();
-		patientChoice(choice);
-		
+		String choice = Utility.inputString();
+		if (Utility.intChecker(choice)) {
+			patientChoice(choice);
+		}
+		else {
+			System.out.println("Enter numbers only");
+			doctorInput();
+		}
 	}
 
-	private static void patientChoice(int choice) {
+	private static void patientChoice(String choice) {
 		switch (choice) {
-		case 1:
+		case "1":
 			Utility.inputString();
 			System.out.print("Enter name:");
 			service.readPatientData("Name", Utility.inputString());
 			break;
-		case 2:
+		case "2":
 			System.out.print("Enter ID:");
 			service.readPatientData("Id", Utility.inputString());
 			break;
-		case 3:
+		case "3":
 			System.out.print("Enter mobile number:");
 			service.readPatientData("Mobile", Utility.inputString());
+			break;
+		default:
+			System.out.println("Please select valid option");
+			patientChoice(choice);
 			break;
 		}
 	}

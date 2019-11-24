@@ -1,10 +1,12 @@
 package com.blbz.util;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class Utility {
 
@@ -30,6 +32,15 @@ public class Utility {
 	
 	public static String inputString() {
 		try {
+			return sc.next();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return "";
+	}
+	
+	public static String inputStringLine() {
+		try {
 			return sc.nextLine();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -45,6 +56,19 @@ public class Utility {
 		}
 		return 0;
 	}
+	
+	public static void scannerClose() {
+		try {
+			sc.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public static void quit() {
+		System.exit(0);
+	}
+	
 	public static boolean stringChecker(String str) {
 		char[] ch = str.toCharArray();
 		String temp = "";
@@ -111,9 +135,20 @@ public class Utility {
 		return false;
 	}
 	
-	/** Generates a random ID for patient **/
-	public static String getRandomId() {
-		Random random = new Random();
-		return String.valueOf(random.nextInt(1000)+ 1);
+	public static boolean intChecker(String number) {
+		// regular expression for an integer number 
+        String regex = "[+-]?[0-9][0-9]*"; 
+        
+     // compiling regex 
+        Pattern p = Pattern.compile(regex); 
+        
+     // Creates a matcher that will match input1 against regex 
+        Matcher m = p.matcher(number);
+        
+        if(m.find() && m.group().equals(number)) 
+        	return true;
+        
+		return false;
+		
 	}
 }

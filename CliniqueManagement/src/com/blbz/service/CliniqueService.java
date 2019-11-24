@@ -4,9 +4,9 @@ import org.json.simple.JSONArray;
 
 public interface CliniqueService {
 
-	JSONArray doctorDetails();
+	void doctorDetails();
 
-	void readDoctorData(String key, String value);
+	void readDoctorData(String key, String value, String choice);
 
 	void readPatientData(String key, String value);
 
