@@ -39,15 +39,20 @@ public class CashCounter {
 			break;
 			
 		case 2:
-			System.out.println("Enter Amount to Deposit :");
-			double deposit = sc.nextDouble();
-			totalAmount = totalAmount+deposit;
-			utility.dequeue();
-			remainingPerson = utility.size();
-			System.out.print("Total Amount :"+totalAmount+"\n\n"+remainingPerson+" Person are in Queue");
-			System.out.println("\n\n-------------------------Thanks Visit Again!!!--------------------------");
-			option = selectedOption();
-			callSwitchCase(utility);
+			if(utility.isEmpty()) {
+				System.out.println("Please add person into the queue before doing any transaction");
+			}
+			else {
+				System.out.println("Enter Amount to Deposit :");
+				double deposit = sc.nextDouble();
+				totalAmount = totalAmount+deposit;
+				utility.dequeue();
+				remainingPerson = utility.size();
+				System.out.print("Total Amount :"+totalAmount+"\n\n"+remainingPerson+" Person are in Queue");
+				System.out.println("\n\n-------------------------Thanks Visit Again!!!--------------------------");
+				option = selectedOption();
+				callSwitchCase(utility);
+			}
 			break;
 			
 		case 3:
