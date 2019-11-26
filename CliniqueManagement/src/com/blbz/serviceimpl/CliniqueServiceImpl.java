@@ -1,5 +1,7 @@
 package com.blbz.serviceimpl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -24,6 +26,7 @@ public class CliniqueServiceImpl implements CliniqueService {
 
 	static String doctor = "JsonFile/doctor.json";
 	static String patient = "JsonFile/patient.json";
+	static String appointment = "JsonFile/appointment.json";
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -106,21 +109,54 @@ public class CliniqueServiceImpl implements CliniqueService {
 			ClinicController.doctorChoice(choice);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void makeAppointment(JSONObject doctorJsonObject) {
+		String patientId = "";
 		String doctorId = (String) doctorJsonObject.get("Id");
 		long patients = (long) doctorJsonObject.get("Patients");
 		if (patients >= 5) { // doctor is busy
-			System.out.println("Sorry!!! Doctor is busy today. Make an appointment tomorrow.");
-			ClinicController.menu();
+			System.out.println("Sorry!!! Doctor is busy today. Do you want to take an appointment tomorrow[y/n]");
+			//current date
+		      LocalDate today = LocalDate.now();
+			  
+			//adding one day to the localdate
+			LocalDate tomorrow = today.plusDays(1);
+			DateTimeFormatter format =  DateTimeFormatter.ofPattern("dd-MM-yyyy");   
+		    
+		    String date = tomorrow.format(format); 
+			  
+			//System.out.println("Tomorrow's Date: "+dateTime);
+			String response = Utility.inputString().toString();
+			if(response.equals("y")) {
+				int count = 0;
+				JSONArray jsonArray = CliniqueRepository.readData(appointment);
+				JSONObject jsonObject = new JSONObject();
+				patientId = Utility.patientId(); 
+				jsonObject.put("DoctorId", doctorId);
+				jsonObject.put("PatientId", patientId);
+				jsonObject.put("AppointmentDate", date);
+				//jsonObject.put("Total Patient", count++);
+				
+				jsonArray.add(jsonObject);
+				
+				CliniqueRepository.writeData(appointment, jsonArray);
+				System.out.println("Congratulation You got an appointment on "+date+". Your Patient ID is " + patientId + "\n");
+				ClinicController.menu();
+			}
+			else {
+				ClinicController.menu();
+			}
+			
+			
 		} 
 		// doctor is not busy. Increases number of patients and updates json file
 		else { 
-			String id = Utility.patientId(); 
+			patientId = Utility.patientId(); 
 			// updates patient json file
-			patientDetailsNew(id,doctorId);
+			patientDetailsNew(patientId,doctorId);
 			doctorJsonObject.put("Patients", patients+1);
 			updateDoctorData(doctorJsonObject);
-			System.out.println("Congratulation You got an appointment. Your Patient ID is " + id + "\n");
+			System.out.println("Congratulation You got an appointment. Your Patient ID is " + patientId + "\n");
 			ClinicController.menu();
 		}
 
