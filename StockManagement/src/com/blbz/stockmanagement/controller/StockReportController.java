@@ -54,7 +54,7 @@ public class StockReportController {
 		System.out.println("----------STOCK REPORT----------");
 		System.out.println("\nName\tShares\tPrice\tValue");
 		while(!list.isEmpty()) {
-			StockPortfolio folio = list.pop(0);
+			StockPortfolio folio = list.pop();
 			totalValue += folio.getValue();
 			System.out.println(folio.getName() + "\t" + folio.getNumberOfShares()
 					+ "\t" + folio.getPrice() + " \t" + folio.getValue());

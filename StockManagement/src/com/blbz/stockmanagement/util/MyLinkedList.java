@@ -1,15 +1,10 @@
 package com.blbz.stockmanagement.util;
 
-/*
-* Purpose: This class contains all methods implementation of LinkedList
-* @author: Amit
-* @since: 24-11-2019
-* 
-* */
-public class MyLinkedList<T>{
 
-	Node<T> head;	//starting node
-	Node<T> current;	//last node
+public class MyLinkedList<T> {
+
+	MyNode<T> head;	//starting node
+	MyNode<T> current;	//last node
 	int position;	//position of last node
 
 	/**
@@ -27,7 +22,7 @@ public class MyLinkedList<T>{
 	 * adds element to the list at end of the list
 	 */
 	public void add(T data){
-		Node<T> node = new Node<T>(data);
+		MyNode<T> node = new MyNode<T>(data);
 		if(head == null){
 			head = node;
 			current = head;
@@ -44,8 +39,8 @@ public class MyLinkedList<T>{
 	 * removes given element from the list
 	 */
 	public void remove(T data){
-		Node<T> tempCurrent = head;
-		Node<T> tempPrev = null;
+		MyNode<T> tempCurrent = head;
+		MyNode<T> tempPrev = null;
 		while(!tempCurrent.data.equals(data)){
 			tempPrev = tempCurrent;
 			tempCurrent = tempCurrent.next;
@@ -104,7 +99,7 @@ public class MyLinkedList<T>{
 		if(position == -1){
 			return -1;
 		}
-		Node<T> tempCurrent = head;
+		MyNode<T> tempCurrent = head;
 		int tempPosition = 0;
 		
 		while(!tempCurrent.data.equals(data)){
@@ -127,20 +122,20 @@ public class MyLinkedList<T>{
 			add(data);
 		}
 		else if(pos == 0){
-			Node<T> tempNode = head;
-			head = new Node<T>(data);
+			MyNode<T> tempNode = head;
+			head = new MyNode<T>(data);
 			head.next = tempNode;
 		}
 		else{
-			Node<T> tempCurrent = head;
-			Node<T> tempPrev = null;
+			MyNode<T> tempCurrent = head;
+			MyNode<T> tempPrev = null;
 			int tempPosition = 0;
 			while(tempPosition <= pos + 1){
 				tempPrev = tempCurrent;
 				tempCurrent = tempCurrent.next;
 				tempPosition++;
 			}
-			Node<T> newNode = new Node<T>(data);
+			MyNode<T> newNode = new MyNode<T>(data);
 			newNode.next = tempCurrent;
 			tempPrev.next = newNode;
 		}
@@ -152,8 +147,8 @@ public class MyLinkedList<T>{
 	 * @returns element popped 
 	 */
 	public T pop(int location){
-		Node<T> tempCurrent = head;
-		Node<T> tempPrev = null;
+		MyNode<T> tempCurrent = head;
+		MyNode<T> tempPrev = null;
 		int tempPosition = 0;
 		position--;
 		while(tempPosition != location){
@@ -189,7 +184,7 @@ public class MyLinkedList<T>{
 	 * @returns object of given location
 	 */
 	public T get(int location) {
-		Node<T> tempCurrent = head;
+		MyNode<T> tempCurrent = head;
 		int tempPosition = 0;
 		
 		while(tempPosition != location){
@@ -204,7 +199,7 @@ public class MyLinkedList<T>{
 	 * prints all the elements in the list
 	 */
 	public void list(){
-		Node<T> tempCurrent = head;
+		MyNode<T> tempCurrent = head;
 		while(tempCurrent != null){
 			System.out.println(tempCurrent.data);
 			tempCurrent = tempCurrent.next;
@@ -213,11 +208,11 @@ public class MyLinkedList<T>{
 }
 
 
-class Node<T>{
+class MyNode<T>{
 	T data;	//data to be stored
-	Node<T> next;	//reference to the next node
+	MyNode<T> next;	//reference to the next node
 	
-	Node(T data){
+	MyNode(T data){
 		this.data = data;
 		next = null;
 	}

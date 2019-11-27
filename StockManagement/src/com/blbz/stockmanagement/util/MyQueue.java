@@ -1,11 +1,5 @@
 package com.blbz.stockmanagement.util;
 
-/*
-* Purpose: This class contains all methods implementation of Queue
-* @author: Amit
-* @since: 24-11-2019
-* 
-* */
 public class MyQueue<T> {
 	
 	MyLinkedList<T> myLinkedList;
@@ -47,5 +41,4 @@ public class MyQueue<T> {
 	public int size(){
 		return myLinkedList.size();
 	}
-
 }
