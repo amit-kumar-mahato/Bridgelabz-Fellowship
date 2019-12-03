@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+
 import com.blbz.loginproject.model.Login;
 import com.blbz.loginproject.service.LoginService;
 import com.blbz.loginproject.util.Utility;
@@ -19,6 +21,7 @@ import com.blbz.loginproject.util.Utility;
 public class LoginController extends HttpServlet {
 	Login login = Utility.getLogin();
 	LoginService loginService = Utility.getLoginService();
+	JSONArray array = null;
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,22 +32,18 @@ public class LoginController extends HttpServlet {
 
 		login.setUsername(uname);
 		login.setPassword(password);
-
-		req.setAttribute("username", login);
-
-		boolean result;
+		
 		try {
-			result = loginService.authenticateUser(login);
-
-			if (result) {
+			array = loginService.authenticateUser(login);
+			req.setAttribute("jsonArray", array);
+			if (array!=null) {
 
 				HttpSession httpSession = req.getSession();
 				httpSession.setAttribute("username", uname);
-				/*
-				 * RequestDispatcher rd = req.getRequestDispatcher("success.jsp");
-				 * rd.forward(req, resp);
-				 */
-				resp.sendRedirect("success.jsp");
+				 RequestDispatcher rd = req.getRequestDispatcher("success.jsp");
+				 rd.forward(req, resp);
+				 
+				//resp.sendRedirect("success.jsp");
 			} else {
 				req.setAttribute("message", "Invalid Username/Password");
 				RequestDispatcher rd = req.getRequestDispatcher("index.jsp");

@@ -41,8 +41,7 @@
 						<input type="password" class="form-control" name="password"
 							placeholder="Password" id="pswd">
 					</div>
-					<span style="margin-left: 32%; margin-top: 2%; font-size: 12px;">New
-						User Please Register First**</span>
+					<span style="margin-left: 32%; margin-top: 2%; font-size: 12px;">New User Please Register First**</span>
 				</div>
 
 				<div class="buttons" style="display: inline;">

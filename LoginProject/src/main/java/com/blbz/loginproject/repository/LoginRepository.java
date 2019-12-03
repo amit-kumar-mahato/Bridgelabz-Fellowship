@@ -5,13 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.blbz.loginproject.util.Utility;
 
 public class LoginRepository {
 
-	public static boolean getAuthenticatedUser(JSONObject jsonObject) throws ClassNotFoundException, SQLException {
+	public static JSONArray getAuthenticatedUser(JSONObject jsonObject) throws ClassNotFoundException, SQLException {
 		
 		String uname = (String) jsonObject.get("username");
 		String pswd = (String)jsonObject.get("password");
@@ -23,10 +24,10 @@ public class LoginRepository {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return true;
+				return RegistrationRepository.findAll();
 			}
 		}
-		return false;
+		return null;
 	}
 	
 }

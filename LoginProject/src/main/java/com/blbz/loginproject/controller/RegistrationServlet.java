@@ -54,6 +54,8 @@ public class RegistrationServlet extends HttpServlet{
 			resp.sendRedirect("error.jsp");
 		}*/
 		
+		req.setAttribute("jsonArray", array);
+		resp.sendRedirect("success.jsp");
 		System.out.println("User Details:\n"+array.size());
 	}
 	
