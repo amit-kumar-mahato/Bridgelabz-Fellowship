@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
 
 import com.blbz.loginproject.model.Registration;
 import com.blbz.loginproject.service.RegistrationService;
+import com.blbz.loginproject.service.UserDetailsService;
 import com.blbz.loginproject.util.Utility;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet{
 	Registration userDetails = Utility.getRegistration();
-	RegistrationService registrationService = Utility.getRegistrationService();
+	//RegistrationService registrationService = Utility.getRegistrationService();
+	UserDetailsService userDetailsService = Utility.getUserService();
 	JSONArray array = null;
 	private static final long serialVersionUID = 1L;
 	
@@ -42,7 +44,7 @@ public class RegistrationServlet extends HttpServlet{
 		userDetails.setPassword(password);	
 		
 		//req.setAttribute("uname", userDetails.getUserName());
-		array = registrationService.addUser(userDetails);
+		array = userDetailsService.addUser(userDetails);
 		/*if(result) {
 			HttpSession session = req.getSession();
 			session.setAttribute("username", uName);

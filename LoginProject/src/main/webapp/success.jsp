@@ -1,10 +1,10 @@
 <%@page import="org.json.simple.JSONArray"%>
-<%@page import= "org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="com.blbz.loginproject.model.Login"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.blbz.loginproject.controller.LoginController"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -25,7 +25,7 @@
 <script type="text/javascript" src="JS/formvalidation.js"></script>
 </head>
 <body>
-	
+
 	<%
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.addHeader("Cache-Control", "post-check=0, pre-check=0");
@@ -36,52 +36,57 @@
 		} else {
 			/* String name = (String)session.getAttribute("username");
 			out.println("Welcome :"+name); */
-		
 	%>
 	<div class="container">
-	<p>Congratulation <%=session.getAttribute("username") %> you are successfully Logged In!!!!</p>
-	<table>
-		<tr class="heading">
-			<td>First Name</td>
-			<td>Last Name</td>
-			<td>User Name</td>
-			<td>Email</td>
-			<td>Mobile</td>
-			<td>Action</td>
-		</tr>
-		<%
-			JSONArray array = (JSONArray) request.getAttribute("jsonArray");
+		<p>
+			Congratulation
+			<%=session.getAttribute("username")%>
+			you are successfully Logged In!!!!
+		</p>
+		<table>
+			<tr class="heading">
+				<td>First Name</td>
+				<td>Last Name</td>
+				<td>User Name</td>
+				<td>Email</td>
+				<td>Mobile</td>
+				<td>Action</td>
+			</tr>
+			<%
+				JSONArray array = (JSONArray) request.getAttribute("jsonArray");
 
-				for (int i = 0; i < array.size(); i++) {
-					JSONObject userInfo = (JSONObject) array.get(i);
-		%>
-		<tr>
-			<td><%=userInfo.get("firstname")%></td>
-			<td><%=userInfo.get("lastname")%></td>
-			<%String uname = (String)userInfo.get("username"); %>
-			<td><%=uname%></td>
-			<td><%=userInfo.get("email")%></td>
-			<td><%=userInfo.get("contact")%></td>
-			<td>
-				<!-- <button type="button" class="btn btn-primary">Edit</button>
-				<button type="button" class="btn btn-danger">Delete</button> -->
-				<a class="btn btn-primary">Edit</a>
-				<form action="delete">
-					<input type="hidden" id="deleteuserdetails" value="uname">
-					<button type="button" >Delete</button>
-				</form>
-			</td>
-		</tr>
-		<%
-			}
-			}
-		%>
-	</table>
-	<form action="logout">
-		<div>
-			<input type="submit" class="btn btn-primary" value="Logout">
-		</div>
-	</form>
+					for (int i = 0; i < array.size(); i++) {
+						JSONObject userInfo = (JSONObject) array.get(i);
+			%>
+			<tr>
+				<td><%=userInfo.get("firstname")%></td>
+				<td><%=userInfo.get("lastname")%></td>
+				<td><%=userInfo.get("username")%></td>
+				<td><%=userInfo.get("email")%></td>
+				<td><%=userInfo.get("contact")%></td>
+				<td>
+					<form action="edit" method="post">
+						<input type="hidden" name="user"
+							value="<%=userInfo.get("username")%>">
+						<button type="submit" class="btn btn-outline-info btn-sm">Edit</button>
+					</form>
+					<form action="delete" method="post" style="float: right;">
+						<input type="hidden" id="deleteuserdetails" name="user"
+							value="<%=userInfo.get("username")%>">
+						<button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+					</form>
+				</td>
+			</tr>
+			<%
+				}
+				}
+			%>
+		</table>
+		<form action="logout">
+			<div>
+				<input type="submit" class="btn btn-primary" value="Logout">
+			</div>
+		</form>
 	</div>
 </body>
 </html>

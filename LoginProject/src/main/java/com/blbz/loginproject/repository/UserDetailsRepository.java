@@ -51,7 +51,7 @@ public class UserDetailsRepository {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				return RegistrationRepository.findAll();
+				return UserDetailsRepository.findAll();
 			}
 		}
 		return null;
@@ -83,7 +83,34 @@ public class UserDetailsRepository {
 
 	}
 	
-	public static boolean deleteUserDetails(String username) throws ClassNotFoundException, SQLException {
+	@SuppressWarnings("unchecked")
+	public static JSONArray getOneUserDetails(String name) throws ClassNotFoundException, SQLException {
+		JSONObject object = Utility.getJsonObject();
+		String editUser = "SELECT * FROM userdetails WHERE UserName=?";
+		ResultSet rs =null;
+		try(Connection con = Utility.dbConnection();PreparedStatement pstmt = con.prepareStatement(editUser)){
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				object = Utility.getJsonObject();
+				object.put("firstname", rs.getString("FirstName"));
+				object.put("lastname", rs.getString("LastName"));
+				object.put("username", rs.getString("UserName"));
+				object.put("email", rs.getString("Email"));
+				object.put("contact", rs.getString("Mobile"));
+				object.put("password", rs.getString("Password"));
+				array.add(object);
+			}
+		}
+		return array;
+	}
+	/*
+	 * This method will delete the UserDetails
+	 * @param-type: String
+	 * @return-type: boolean
+	 * 
+	 * */
+	public static boolean delete(String username) throws ClassNotFoundException, SQLException {
 		String deleteUser = "DELETE FROM userdetails where UserName=?";
 		try(Connection con = Utility.dbConnection();PreparedStatement pstmt = con.prepareStatement(deleteUser);){
 			pstmt.setString(1, username);

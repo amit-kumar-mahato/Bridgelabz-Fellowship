@@ -9,10 +9,9 @@ import org.json.simple.JSONObject;
 
 import com.blbz.loginproject.model.Login;
 import com.blbz.loginproject.model.Registration;
-import com.blbz.loginproject.service.LoginService;
 import com.blbz.loginproject.service.RegistrationService;
-import com.blbz.loginproject.serviceimpl.LoginServiceimpl;
-import com.blbz.loginproject.serviceimpl.RegistrationServiceImpl;
+import com.blbz.loginproject.service.UserDetailsService;
+import com.blbz.loginproject.serviceimpl.UserDetailsServiceImpl;
 
 public class Utility {
 	
@@ -21,7 +20,7 @@ public class Utility {
 	static Registration registration;
 	static Login login;
 	static RegistrationService registrationService;
-	static LoginService loginService;
+	static UserDetailsService userService;
 	
 	/*
 	 * @param-type: Doesn't take any parameter
@@ -50,22 +49,14 @@ public class Utility {
 		return login = new Login();
 	}
 	
-	/*
-	 * @param-type: Doesn't take any parameter
-	 * @return-type: RegistrationService
-	 * 
-	 * */
-	public static RegistrationService getRegistrationService() {
-		return registrationService = new RegistrationServiceImpl();
-	}
 	
 	/*
 	 * @param-type: Doesn't take any parameter
-	 * @return-type: Logince
+	 * @return-type: 
 	 * 
 	 * */
-	public static LoginService getLoginService() {
-		return loginService = new LoginServiceimpl();
+	public static UserDetailsService getUserService() {
+		return userService = new UserDetailsServiceImpl();
 	}
 	
 	/*

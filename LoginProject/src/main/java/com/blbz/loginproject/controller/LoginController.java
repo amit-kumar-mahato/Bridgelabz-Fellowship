@@ -2,6 +2,7 @@ package com.blbz.loginproject.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,13 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 
 import com.blbz.loginproject.model.Login;
+import com.blbz.loginproject.model.Registration;
 import com.blbz.loginproject.service.LoginService;
+import com.blbz.loginproject.service.UserDetailsService;
 import com.blbz.loginproject.util.Utility;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	Login login = Utility.getLogin();
-	LoginService loginService = Utility.getLoginService();
+	UserDetailsService userService = Utility.getUserService();
 	JSONArray array = null;
 
 	private static final long serialVersionUID = 1L;
@@ -34,7 +37,9 @@ public class LoginController extends HttpServlet {
 		login.setPassword(password);
 		
 		try {
-			array = loginService.authenticateUser(login);
+			array = userService.authenticateUser(login);
+			List userDetails = array;
+			System.out.println(""+userDetails);
 			req.setAttribute("jsonArray", array);
 			if (array!=null) {
 
@@ -53,6 +58,12 @@ public class LoginController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
 	}
 
 }
