@@ -11,9 +11,9 @@ import org.json.simple.JSONObject;
 import com.blbz.loginproject.util.Utility;
 
 public class UserDetailsRepository {
-	static JSONArray array = Utility.getJsonArray();
+	static JSONArray array;
 
-	public static JSONArray addUser(JSONObject jsonObject) {
+	public static boolean addUser(JSONObject jsonObject) {
 		String query = "INSERT into userdetails values(?,?,?,?,?,?)";
 
 		try (Connection con = Utility.dbConnection(); PreparedStatement pstmt = con.prepareStatement(query)) {
@@ -25,22 +25,21 @@ public class UserDetailsRepository {
 			pstmt.setString(5, jsonObject.get("phone").toString());
 			pstmt.setString(6, jsonObject.get("password").toString());
 
-			if (pstmt != null) {
-				System.out.println("Coming inside if block!!!");
-				pstmt.executeUpdate();
-				return findAll();
-			}
+			int result = pstmt.executeUpdate();
+			if(result>0)
+				return true;
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 
 	public static JSONArray getAuthenticatedUser(JSONObject jsonObject) throws ClassNotFoundException, SQLException {
 
+		array = Utility.getJsonArray();
 		String uname = (String) jsonObject.get("username");
 		String pswd = (String) jsonObject.get("password");
 		String query = "SELECT * from userdetails WHERE UserName=? AND Password=?";
@@ -60,6 +59,7 @@ public class UserDetailsRepository {
 	@SuppressWarnings("unchecked")
 	public static JSONArray findAll() throws ClassNotFoundException, SQLException {
 		JSONObject jsonObject = null;
+		array = Utility.getJsonArray();
 		String userDetails = "SELECT * from userdetails";
 		ResultSet rs = null;
 
@@ -84,7 +84,7 @@ public class UserDetailsRepository {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static JSONArray getOneUserDetails(String name) throws ClassNotFoundException, SQLException {
+	public static JSONObject getOneUserDetails(String name) throws ClassNotFoundException, SQLException {
 		JSONObject object = Utility.getJsonObject();
 		String editUser = "SELECT * FROM userdetails WHERE UserName=?";
 		ResultSet rs =null;
@@ -99,10 +99,10 @@ public class UserDetailsRepository {
 				object.put("email", rs.getString("Email"));
 				object.put("contact", rs.getString("Mobile"));
 				object.put("password", rs.getString("Password"));
-				array.add(object);
+				
 			}
 		}
-		return array;
+		return object;
 	}
 	/*
 	 * This method will delete the UserDetails
@@ -117,5 +117,30 @@ public class UserDetailsRepository {
 			boolean rowDeleted = pstmt.executeUpdate()>0;
 			return rowDeleted;
 		}
+	}
+	
+	/*
+	 * This method will update the UserDetails
+	 * @param-type: JSONObject
+	 * @return-type: boolean
+	 * 
+	 * */
+	public static boolean update(JSONObject jsonObject) throws ClassNotFoundException, SQLException {
+		String updateUser = "UPDATE userdetails SET FirstName=?,LastName=?,Email=?,Mobile=? WHERE UserName=?";
+		try(Connection con = Utility.dbConnection();PreparedStatement pstmt = con.prepareStatement(updateUser);){
+			pstmt.setString(1, jsonObject.get("firstname").toString());
+			pstmt.setString(2, jsonObject.get("lastname").toString());
+			pstmt.setString(3, jsonObject.get("email").toString());
+			pstmt.setString(4, jsonObject.get("phone").toString());
+			pstmt.setString(5, jsonObject.get("username").toString());
+			boolean rowDeleted = pstmt.executeUpdate()>0;
+			return rowDeleted;
+		}
+	}
+
+	public static boolean userNameChecker(String username) {
+		String userAvailable = "SELECT * FROM userdetails WHERE UserName=?";
+		return false;
+		
 	}
 }

@@ -9,6 +9,7 @@
 		<title></title>
 	</head>
 	<body>
+	
 		<c:out value="${message}"/>
 	</body>
 </html>

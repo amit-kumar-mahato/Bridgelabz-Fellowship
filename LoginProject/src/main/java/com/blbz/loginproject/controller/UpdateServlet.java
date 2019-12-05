@@ -2,7 +2,6 @@ package com.blbz.loginproject.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,41 +12,48 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 
+import com.blbz.loginproject.model.Registration;
 import com.blbz.loginproject.repository.UserDetailsRepository;
 import com.blbz.loginproject.service.UserDetailsService;
+import com.blbz.loginproject.serviceimpl.UserDetailsServiceImpl;
 import com.blbz.loginproject.util.Utility;
 
-@WebServlet("/delete")
-public class DeleteServlet extends HttpServlet{
-	
-	UserDetailsService service = Utility.getUserService();
-	private static final long serialVersionUID = 1L;
+@WebServlet("/update")
+public class UpdateServlet extends HttpServlet{
 
+	Registration userDetails = Utility.getRegistration();
+	UserDetailsService userService = new UserDetailsServiceImpl();
+	JSONArray array = Utility.getJsonArray();
+	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		JSONArray array = Utility.getJsonArray();
-		String name = req.getParameter("user");
-		System.out.println("Coming inside DeleteServlet :"+name);
-		boolean result;
+		String fname = req.getParameter("firstName");
+		String lname = req.getParameter("lastName");
+		String uname = req.getParameter("userName");
+		String email = req.getParameter("email");
+		String contactNumber = req.getParameter("contactNumber");
+		
+		userDetails.setFirstName(fname);
+		userDetails.setLastName(lname);
+		userDetails.setUserName(uname);
+		userDetails.setEmail(email);
+		userDetails.setMobile(contactNumber);
 		
 		try {
-			result = service.deleteUserDetails(name);
-			if(result) {
-		
+			if(userService.updateUserDetails(userDetails)) {
 				array = UserDetailsRepository.findAll();
 				req.setAttribute("jsonArray", array);
+				
 				RequestDispatcher rd = req.getRequestDispatcher("success.jsp");
 				rd.forward(req, resp);
-			}
-			else {
-				req.setAttribute("message", "exist/notexist");
-				resp.sendRedirect("error.jsp");
+				
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
 }

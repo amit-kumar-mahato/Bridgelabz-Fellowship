@@ -2,6 +2,7 @@ package com.blbz.loginproject.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ public class LogoutServlet extends HttpServlet{
 		HttpSession httpSession = req.getSession();
 		httpSession.removeAttribute("username");
 		httpSession.invalidate();
-		resp.sendRedirect("index.jsp");
+		//resp.sendRedirect("index.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+		rd.forward(req, resp);
 		
 	}
 

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <!-- Latest compiled and minified CSS -->
 <head>
@@ -18,6 +19,15 @@
 </head>
 
 <body>
+	
+<c:if test="${not empty useravailable}">
+	<script>
+	window.addEventListener("load",function(){
+        alert("${useravailable}");
+   }
+	 
+	</script>
+</c:if>
 	<div class="container registration">
 		<fieldset class="border p-2">
 			<legend class="w-auto">Registration
@@ -35,6 +45,7 @@
 							<span id="lastname" class="text-danger font-weight-bold"></span>
 					</div>
 				</div>
+				
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="text" class="form-control" name="userName"
@@ -42,6 +53,7 @@
 							<span id="username" class="text-danger font-weight-thin"></span>
 					</div>
 				</div>
+		
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="text" class="form-control" name="email"
@@ -66,7 +78,7 @@
 							<span id="cpass" class="text-danger font-weight-bold"></span>
 					</div>
 				</div>
-				<button class="btn btn-primary" type="submit">SUBMIT</button>
+				<button class="btn btn-primary" type="submit"  >SUBMIT</button>
 			</form>
 		</fieldset>
 	</div>

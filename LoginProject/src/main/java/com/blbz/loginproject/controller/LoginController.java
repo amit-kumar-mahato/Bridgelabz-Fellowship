@@ -38,8 +38,6 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			array = userService.authenticateUser(login);
-			List userDetails = array;
-			System.out.println(""+userDetails);
 			req.setAttribute("jsonArray", array);
 			if (array!=null) {
 
@@ -48,14 +46,12 @@ public class LoginController extends HttpServlet {
 				 RequestDispatcher rd = req.getRequestDispatcher("success.jsp");
 				 rd.forward(req, resp);
 				 
-				//resp.sendRedirect("success.jsp");
 			} else {
 				req.setAttribute("message", "Invalid Username/Password");
 				RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
 				rd.forward(req, resp);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

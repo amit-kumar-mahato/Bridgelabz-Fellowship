@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public JSONArray addUser(Registration userDetails) {
+	public boolean addUser(Registration userDetails) {
 		jsonObject.put("firstname", userDetails.getFirstName());
 		jsonObject.put("lastname", userDetails.getLastName());
 		jsonObject.put("username", userDetails.getUserName());
@@ -40,6 +40,18 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public boolean deleteUserDetails(String name) throws ClassNotFoundException, SQLException {
 		return UserDetailsRepository.delete(name);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean updateUserDetails(Registration userDetails) throws ClassNotFoundException, SQLException {
+		jsonObject.put("firstname", userDetails.getFirstName());
+		jsonObject.put("lastname", userDetails.getLastName());
+		jsonObject.put("username", userDetails.getUserName());
+		jsonObject.put("email", userDetails.getEmail());
+		jsonObject.put("phone", userDetails.getMobile());
+		
+		return UserDetailsRepository.update(jsonObject);
 	}
 
 }

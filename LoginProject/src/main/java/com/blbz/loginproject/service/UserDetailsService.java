@@ -9,6 +9,7 @@ import com.blbz.loginproject.model.Registration;
 
 public interface UserDetailsService {
 	JSONArray authenticateUser(Login login) throws ClassNotFoundException, SQLException;
-	public JSONArray addUser(Registration userDetails);
+	public boolean addUser(Registration userDetails);
 	boolean deleteUserDetails(String name) throws ClassNotFoundException, SQLException;
+	boolean updateUserDetails(Registration userDetails)throws ClassNotFoundException, SQLException;
 }
