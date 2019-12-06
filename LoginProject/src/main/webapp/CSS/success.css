@@ -20,3 +20,6 @@ tr:nth-child(even) {
 form {
 	display: inline;
 }
+.btn-primary {
+	margin-top: 1%;
+}

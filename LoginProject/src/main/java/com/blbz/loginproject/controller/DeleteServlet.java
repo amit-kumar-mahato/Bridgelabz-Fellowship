@@ -27,7 +27,7 @@ public class DeleteServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		JSONArray array = Utility.getJsonArray();
 		String name = req.getParameter("user");
-		System.out.println("Coming inside DeleteServlet :"+name);
+		//System.out.println("Coming inside DeleteServlet :"+name);
 		boolean result;
 		
 		try {

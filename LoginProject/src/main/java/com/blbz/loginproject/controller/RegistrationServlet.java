@@ -31,13 +31,14 @@ public class RegistrationServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		PrintWriter out = resp.getWriter();
 		String fName = req.getParameter("firstName");
 		String lName = req.getParameter("lastName");
 		String uName = req.getParameter("userName");
 		String email = req.getParameter("email");
 		String contactNumber = req.getParameter("contactNumber");
 		String password = req.getParameter("password");
+		
+		String nameid = req.getParameter("uname");
 
 		userDetails.setFirstName(fName);
 		userDetails.setLastName(lName);
@@ -47,13 +48,16 @@ public class RegistrationServlet extends HttpServlet {
 		userDetails.setPassword(password);
 
 		try {
-			jsonObject = UserDetailsRepository.getOneUserDetails(uName);
+			jsonObject = Utility.getJsonObject();
+			jsonObject = UserDetailsRepository.getOneUserDetails(nameid);
+			System.out.println("JSONObject :"+jsonObject);
 			if (jsonObject != null) {
-				
-			//	out.print("<script language='JavaScript'>alert('Hello');</script>");
-				//req.setAttribute("useravailable", "User is already exist");
+				String msg = "User is already exist";
+				resp.setContentType("text/plain");
+				resp.getWriter().write(msg);
 			//	throw new UserAlreadyExistException("User is already exist");
 			} else {
+				System.out.println("Coming inside else block");
 				boolean result = userDetailsService.addUser(userDetails);
 				if (result) {
 					req.setAttribute("insert", "Data is added into the table successfully!!!");

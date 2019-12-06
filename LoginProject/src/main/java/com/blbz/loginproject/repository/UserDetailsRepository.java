@@ -85,10 +85,11 @@ public class UserDetailsRepository {
 	
 	@SuppressWarnings("unchecked")
 	public static JSONObject getOneUserDetails(String name) throws ClassNotFoundException, SQLException {
-		JSONObject object = Utility.getJsonObject();
+		JSONObject object = null;
 		String editUser = "SELECT * FROM userdetails WHERE UserName=?";
 		ResultSet rs =null;
 		try(Connection con = Utility.dbConnection();PreparedStatement pstmt = con.prepareStatement(editUser)){
+			
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {

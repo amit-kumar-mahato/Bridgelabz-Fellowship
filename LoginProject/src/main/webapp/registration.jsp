@@ -14,149 +14,175 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="JS/formvalidation.js"></script>  
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="JS/formvalidation.js"></script>
 </head>
 
 <body>
-	
-<c:if test="${not empty useravailable}">
-	<script>
-	window.addEventListener("load",function(){
-        alert("${useravailable}");
-   }
-	 
-	</script>
-</c:if>
+
 	<div class="container registration">
 		<fieldset class="border p-2">
-			<legend class="w-auto">Registration
-				Form</legend>
-			<form action="registration" method="post" id="registrationForm" onsubmit="return validation();">
+			<legend class="w-auto">Registration Form</legend>
+			<form action="registration" method="post" id="registrationForm"
+				onsubmit="return validation();">
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="text" class="form-control" name="firstName"
-							placeholder="First name" id="fname">
-							<span id="firstname" class="text-danger font-weight-bold"></span>
+							placeholder="First name" id="fname"> <span id="firstname"
+							class="text-danger font-weight-bold"></span>
 					</div>
 					<div class="col">
 						<input type="text" class="form-control" name="lastName"
-							placeholder="Last name" id="lname">
-							<span id="lastname" class="text-danger font-weight-bold"></span>
+							placeholder="Last name" id="lname"> <span id="lastname"
+							class="text-danger font-weight-bold"></span>
 					</div>
 				</div>
-				
+
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="text" class="form-control" name="userName"
-							placeholder="UserName" id="uname">
-							<span id="username" class="text-danger font-weight-thin"></span>
+							placeholder="UserName" id="uname" onclick="hidevalue()"> <span id="username"
+							class="text-danger font-weight-thin"></span>
+							<div id="ajaxGetUserServletResponse"></div>
 					</div>
+					
 				</div>
-		
+				
+				<!-- below jquery things triggered on onblur event and checks the username availability in the database -->
+				<script type="text/javascript">
+					/* $(document).ready(function() {
+						alert("js is working");
+						$('#uname').blur(function() {
+							alert("blur is working")
+							$.ajax({
+									type : 'post',
+									url : 'registration',
+									data : {
+												userName : $('#uname').val()
+											},
+											success : function(responseText) {
+												$('#ajaxGetUserServletResponse').text(responseText);
+											}
+									});
+							});
+					});  */
+					function hidevalue() {
+						document.getElementById("ajaxGetUserServletResponse").innerHTML = "";
+					}
+					$(document).ready(function(){
+						$('#uname').blur(function(){
+							var userName = $('#uname').val();
+							$.post('registration',{uname:userName},function(responseText){
+								$('#ajaxGetUserServletResponse').text(responseText).css({"color": "red","text-align":"center"});
+							});
+						});
+					}); 
+				</script>
+			
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="text" class="form-control" name="email"
-							placeholder="Email" id="email">
-							<span id="mailid" class="text-danger font-weight-bold"></span>
+							placeholder="Email" id="email"> <span id="mailid"
+							class="text-danger font-weight-bold"></span>
 					</div>
 					<div class="col">
 						<input type="number" class="form-control" name="contactNumber"
-							placeholder="Contact Number" id="ph">
-							<span id="mobile" class="text-danger font-weight-bold"></span>
+							placeholder="Contact Number" id="ph"> <span id="mobile"
+							class="text-danger font-weight-bold"></span>
 					</div>
 				</div>
 				<div class="row" style="padding-bottom: 20px">
 					<div class="col">
 						<input type="password" class="form-control" name="password"
-							placeholder="Password" id="pswd">
-							<span id="pass" class="text-danger font-weight-bold"></span>
+							placeholder="Password" id="pswd"> <span id="pass"
+							class="text-danger font-weight-bold"></span>
 					</div>
 					<div class="col">
 						<input type="password" class="form-control"
-							placeholder="Confirm Password" id="cpswd">
-							<span id="cpass" class="text-danger font-weight-bold"></span>
+							placeholder="Confirm Password" id="cpswd"> <span
+							id="cpass" class="text-danger font-weight-bold"></span>
 					</div>
 				</div>
-				<button class="btn btn-primary" type="submit"  >SUBMIT</button>
+				<div>
+					<button class="btn btn-success regbtn" type="submit">SUBMIT</button>
+				</div>
 			</form>
 		</fieldset>
 	</div>
-	
+
 	<script type="text/javascript">
-	
-	function validation(){
-		//alert("Coming inside if block");
-		var firstName = document.getElementById('fname').value;
-		var lastName = document.getElementById('lname').value;
-		var userName = document.getElementById('uname').value;
-		var email = document.getElementById('email').value;
-		var contact = document.getElementById('ph').value;
-		var password = document.getElementById('pswd').value;
-		var cpassword = document.getElementById('cpswd').value;
-		
-		var letters = /^[A-Za-z]+$/;
-		var mobilePattern = /^[7-9][0-9]{9}$/;
-		
-		if(firstName == ""){
-			document.getElementById('firstname').innerHTML ="Please fill the First Name field";
-			return false;
+		function validation() {
+			//alert("Coming inside if block");
+			var firstName = document.getElementById('fname').value;
+			var lastName = document.getElementById('lname').value;
+			var userName = document.getElementById('uname').value;
+			var email = document.getElementById('email').value;
+			var contact = document.getElementById('ph').value;
+			var password = document.getElementById('pswd').value;
+			var cpassword = document.getElementById('cpswd').value;
+
+			var letters = /^[A-Za-z]+$/;
+			var mobilePattern = /^[7-9][0-9]{9}$/;
+
+			if (firstName == "") {
+				document.getElementById('firstname').innerHTML = "Please fill the First Name field";
+				return false;
+			}
+			if (!firstName.match(letters)) {
+				document.getElementById('firstname').innerHTML = "Please Enter only alphabets";
+				return false;
+			}
+
+			if (lastName == "") {
+				document.getElementById('lastname').innerHTML = "Please fill the Last Name field";
+				return false;
+			}
+			if (!lastName.match(letters)) {
+				document.getElementById('lastname').innerHTML = "Please Enter only alphabets";
+				return false;
+			}
+
+			if (userName == "") {
+				document.getElementById('username').innerHTML = "Please fill the User Name field";
+				return false;
+			}
+			if ((userName.length <= 5) || (userName.length > 10)) {
+				document.getElementById('username').innerHTML = "Username must be greater than 5 and less than 10";
+				return false;
+			}
+
+			if (email == "") {
+				document.getElementById('mailid').innerHTML = "Please fill the Email field";
+				return false;
+			}
+			if (contact == "") {
+				document.getElementById('mobile').innerHTML = "Please fill the Contact field";
+				return false;
+			}
+			if (contact.length > 10) {
+				document.getElementById('mobile').innerHTML = "Invalid Contact Number";
+				return false;
+			}
+
+			if (password == "") {
+				document.getElementById('pass').innerHTML = "Please fill the Password field";
+				return false;
+			}
+			if ((password.length <= 5) || (password.length > 10)) {
+				document.getElementById('pass').innerHTML = "password must be greater than 5 and less than 10";
+				return false;
+			}
+			if (cpassword == "") {
+				document.getElementById('cpass').innerHTML = "Please fill the Confirm Password field";
+				return false;
+			}
+
+			if (password != cpassword) {
+				document.getElementById('pass').innerHTML = "password and confirm password doesn't match";
+				return false;
+			}
 		}
-		if(!firstName.match(letters)){
-			document.getElementById('firstname').innerHTML ="Please Enter only alphabets";
-			return false;
-		}
-		
-		if(lastName == ""){
-			document.getElementById('lastname').innerHTML ="Please fill the Last Name field";
-			return false;
-		}
-		if(!lastName.match(letters)){
-			document.getElementById('lastname').innerHTML ="Please Enter only alphabets";
-			return false;
-		}
-		
-		if(userName == ""){
-			document.getElementById('username').innerHTML ="Please fill the User Name field";
-			return false;
-		}
-		if((userName.length <= 5) || (userName.length>10)){
-			document.getElementById('username').innerHTML ="Username must be greater than 5 and less than 10";
-			return false;
-		}
-		
-		if(email == ""){
-			document.getElementById('mailid').innerHTML ="Please fill the Email field";
-			return false;
-		}
-		if(contact == ""){
-			document.getElementById('mobile').innerHTML ="Please fill the Contact field";
-			return false;
-		}
-		if(contact.length>10){
-			document.getElementById('mobile').innerHTML ="Invalid Contact Number";
-			return false;
-		}
-		
-		if(password == ""){
-			document.getElementById('pass').innerHTML ="Please fill the Password field";
-			return false;
-		}
-		if((password.length <= 5) || (password.length>10)){
-			document.getElementById('pass').innerHTML ="password must be greater than 5 and less than 10";
-			return false;
-		}
-		if(cpassword == ""){
-			document.getElementById('cpass').innerHTML ="Please fill the Confirm Password field";
-			return false;
-		}
-		
-		if(password!=cpassword){
-			document.getElementById('pass').innerHTML ="password and confirm password doesn't match";
-			return false;
-		}
-	}
-	
 	</script>
 </body>
 </html>

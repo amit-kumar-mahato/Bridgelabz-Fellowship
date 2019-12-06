@@ -85,7 +85,7 @@
 		</table>
 		<form action="logout">
 			<div>
-				<input type="submit" class="btn btn-primary" value="Logout">
+				<button type="submit" class="btn btn-primary" value="">Logout</button>
 			</div>
 		</form>
 	</div>
