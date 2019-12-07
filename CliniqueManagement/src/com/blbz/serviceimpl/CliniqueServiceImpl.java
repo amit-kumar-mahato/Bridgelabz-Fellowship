@@ -1,6 +1,7 @@
 package com.blbz.serviceimpl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
@@ -129,7 +130,10 @@ public class CliniqueServiceImpl implements CliniqueService {
 			String response = Utility.inputString().toString();
 			if(response.equals("y")) {
 				int count = 0;
-				JSONArray jsonArray = CliniqueRepository.readData(appointment);
+			patientId = Utility.patientId(); 
+				patientDetailsNew(patientId,doctorId);
+				appointment(patientId,doctorId,date);
+				/*JSONArray jsonArray = CliniqueRepository.readData(appointment);
 				JSONObject jsonObject = new JSONObject();
 				patientId = Utility.patientId(); 
 				jsonObject.put("DoctorId", doctorId);
@@ -141,26 +145,53 @@ public class CliniqueServiceImpl implements CliniqueService {
 				
 				CliniqueRepository.writeData(appointment, jsonArray);
 				System.out.println("Congratulation You got an appointment on "+date+". Your Patient ID is " + patientId + "\n");
-				ClinicController.menu();
+				ClinicController.menu();*/
 			}
 			else {
 				ClinicController.menu();
 			}
-			
-			
 		} 
 		// doctor is not busy. Increases number of patients and updates json file
 		else { 
+			// will give us the current time and date 
+		    LocalDateTime current = LocalDateTime.now(); 
+		    
+		    // to print in a particular format 
+		    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");   
+		    
+		    String date = current.format(format);
+		    
 			patientId = Utility.patientId(); 
 			// updates patient json file
 			patientDetailsNew(patientId,doctorId);
 			doctorJsonObject.put("Patients", patients+1);
 			updateDoctorData(doctorJsonObject);
+			appointment(patientId,doctorId, date);
 			System.out.println("Congratulation You got an appointment. Your Patient ID is " + patientId + "\n");
 			ClinicController.menu();
 		}
 
 	}
+
+	@SuppressWarnings("unchecked")
+	private void appointment(String patientId, String doctorId, String date) {
+
+		JSONArray jsonArray = CliniqueRepository.readData(appointment);
+		JSONObject jsonObject = new JSONObject();
+		 
+		jsonObject.put("DoctorId", doctorId);
+		jsonObject.put("PatientId", patientId);
+		jsonObject.put("AppointmentDate", date);
+		//jsonObject.put("Total Patient", count++);
+		
+		jsonArray.add(jsonObject);
+		
+		CliniqueRepository.writeData(appointment, jsonArray);
+		System.out.println("Congratulation You got an appointment on "+date+". Your Patient ID is " + patientId + "\n");
+		ClinicController.menu();
+		
+	}
+
 
 	private void updateDoctorData(JSONObject doctorJsonObject) {
 
@@ -184,7 +215,7 @@ public class CliniqueServiceImpl implements CliniqueService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void patientDetailsNew(String id, String doctorId) {
+	public void patientDetailsNew(String patientId, String doctorId) {
 
 		JSONArray jsonArray = CliniqueRepository.readData(patient);
 
@@ -206,13 +237,14 @@ public class CliniqueServiceImpl implements CliniqueService {
 		int age = Utility.inputinteger();
 		patientDetails.setAge(age);
 
-		patientDetails.setId(Utility.patientId());
+		patientDetails.setId(patientId);
 
 		jsonObject.put("Id", patientDetails.getId());
 		jsonObject.put("Name", patientDetails.getPatientName());
 		jsonObject.put("Mobile", patientDetails.getMobile());
 		jsonObject.put("Age", patientDetails.getAge());
 		jsonObject.put("Doctor Id",doctorId);
+		
 
 		jsonArray.add(jsonObject);
 		//System.out.println(jsonArray);

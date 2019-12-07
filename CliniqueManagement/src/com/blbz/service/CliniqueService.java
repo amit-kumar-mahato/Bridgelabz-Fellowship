@@ -1,7 +1,5 @@
 package com.blbz.service;
 
-import org.json.simple.JSONArray;
-
 public interface CliniqueService {
 
 	void doctorDetails();

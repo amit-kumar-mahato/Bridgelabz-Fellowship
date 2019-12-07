@@ -1,0 +1,32 @@
+[
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT799",
+		"AppointmentDate": "07-12-2019"
+	},
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT177",
+		"AppointmentDate": "07-12-2019"
+	},
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT62",
+		"AppointmentDate": "07-12-2019"
+	},
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT969",
+		"AppointmentDate": "07-12-2019"
+	},
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT935",
+		"AppointmentDate": "07-12-2019"
+	},
+	{
+		"DoctorId": "DOC649",
+		"PatientId": "PAT366",
+		"AppointmentDate": "08-12-2019"
+	}
+]

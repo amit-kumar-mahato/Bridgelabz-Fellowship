@@ -33,8 +33,8 @@ public class ClinicController {
 				patientInput();
 				break;
 			case "4":
-				Utility.quit();
 				System.out.println("Thanks!!! Have a nice Day ");
+				Utility.quit();
 				break;
 			default:
 				System.out.println("Invalid option");
